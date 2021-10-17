@@ -1,0 +1,10 @@
+.dates {
+    display: flex;
+    flex-direction: row;
+    margin: .5%;
+}
+
+.main-content {
+    flex-direction: row;
+    justify-content: flex-start;
+}
