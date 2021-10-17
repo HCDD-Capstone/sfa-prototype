@@ -5,6 +5,29 @@
 }
 
 .main-content {
+    display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: space-between;
+    height: 600px;
+    margin: 0em;
+}
+
+.details {
+    height: 100%;
+    margin: 0em;
+    overflow-y: auto;
+}
+
+html, body {
+    height: 100%;
+    margin: 0em;
+}
+
+.bar {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 2;
+    width: 100%;
+    align-items: center;
 }
