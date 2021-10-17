@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
-import TransactionDetailBox, { getTransactionData } from '../components/TransactionDetailBox';
+import axios from 'axios';
+import TransactionDetailBox from '../components/TransactionDetailBox';
 import DatePicker from "react-datepicker";
 import '../styles/Transactions.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { Bar } from 'react-chartjs-2';
 
 const data = {
-    labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    labels: [],
     datasets: [
         {
         label: 'Month',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [],
         backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -33,7 +34,7 @@ const data = {
 };
 
 const options = {
-    maintainAspectRatio: false,
+    maintainAspectRatio: true,
     scales: {
         yAxes: [
         {
@@ -45,22 +46,28 @@ const options = {
     },
     layout: {
       padding: {
-        top: 5,
-        right: 100,
-        left: 5,
-        bottom: 5
-      }
+        top: 20,
+        right: 30,
+        left: 20,
+        bottom: 0
+      },
     },
 };
 
 
 function Transactions() {
-  const [startDate, setStartDate] = useState(new Date('August 19, 2021 23:15:30'));
-  const [endDate, setEndDate] = useState(new Date('December 19, 2021 23:15:30'));
-  var transactionData = getTransactionData();
+  const [startDate, setStartDate] = useState(new Date('January 1, 2021 23:15:30'));
+  const [endDate, setEndDate] = useState(new Date('Novemeber 1, 2021 23:15:30'));
+  const [transactions, setTransactions] = useState([]);
   var barGraphData = [];
   const bar = useRef();
   
+  useEffect(() => {
+    axios.get(`/transaction`)
+      .then(res => {
+        setTransactions(res.data);
+      })
+  }, []);  
   
   useEffect(() => {
     updateChart();
@@ -77,12 +84,14 @@ function Transactions() {
       monthsList.push(newMonth);
     }
     var fakeDate;
-    transactionData.forEach((transaction) => {
-      fakeDate = new Date(transaction.date.getFullYear(), transaction.date.getMonth());
-      if (!!monthsList.find(item => {return item.getTime() == fakeDate.getTime()})) {
-        if (!!barGraphData.some(item => new Date(item.date.getFullYear(), item.date.getMonth()).getTime() === fakeDate.getTime())) {
+    var fakeTransactionDate;
+    transactions.forEach((transaction) => {
+      fakeTransactionDate = new Date(transaction.date)
+      fakeDate = new Date(fakeTransactionDate.getFullYear(), fakeTransactionDate.getMonth());
+      if (!!monthsList.find(item => {return item.getTime() === fakeDate.getTime()})) {
+        if (!!barGraphData.some(item => new Date(new Date(item.date).getFullYear(), new Date(item.date).getMonth()).getTime() === fakeDate.getTime())) {
             barGraphData.forEach((data) => {
-              if (new Date(data.date.getFullYear(), data.date.getMonth()).getTime() === fakeDate.getTime()) {
+              if (new Date(new Date(data.date).getFullYear(), new Date(data.date).getMonth()).getTime() === fakeDate.getTime()) {
                 data.total += transaction.price;
               }
             });
@@ -94,12 +103,11 @@ function Transactions() {
         }
       }
     });
-    var counter = 0;
     var monthlySpending = [];
     monthsList.forEach((month) => {
-      if (!!barGraphData.some(item => new Date(item.date.getFullYear(), item.date.getMonth()).getTime() === month.getTime())) {
+      if (!!barGraphData.some(item => new Date( new Date(item.date).getFullYear(), new Date(item.date).getMonth()).getTime() === month.getTime())) {
         barGraphData.forEach((data) => {
-          if (new Date(data.date.getFullYear(), data.date.getMonth()).getTime() === month.getTime())
+          if (new Date( new Date(data.date).getFullYear(), new Date(data.date).getMonth()).getTime() === month.getTime())
           monthlySpending.push({
             'date': month,
             'total': data.total
@@ -112,7 +120,6 @@ function Transactions() {
           'total': 0
         });
       }
-      counter++
     });
     console.log(monthlySpending);
     return monthlySpending;
@@ -129,6 +136,7 @@ function Transactions() {
     try {
       bar.current.data.labels = labels;
       bar.current.data.datasets[0].data = totals;
+      console.log(bar);
       bar.current.update();
     }
     catch (e) {
@@ -150,11 +158,11 @@ function Transactions() {
         </div>
       </div>
       <div className="main-content">
-        <TransactionDetailBox start={startDate} end={endDate}></TransactionDetailBox>
-        <div>
-          <Bar data={data} ref={bar} options={options} height={200} width={1000} />
+        <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
+        <div className="bar">
+          <h2 className="graph-title">Monthly Spending</h2>
+          <Bar data={data} ref={bar} options={options} />
         </div>
-        
       </div>
     </div>   
   );
