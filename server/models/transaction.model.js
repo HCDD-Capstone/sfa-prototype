@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const TransactionSchema = mongoose.Schema({
     name: String,
     date: Date,
-    price: Number
+    price: Number,
+    type: String
 }, {
     timestamps: false
 });

@@ -4,9 +4,69 @@ import TransactionDetailBox from '../components/TransactionDetailBox';
 import DatePicker from "react-datepicker";
 import '../styles/Transactions.css';
 import "react-datepicker/dist/react-datepicker.css";
-import { Bar } from 'react-chartjs-2';
+import { Bar, Doughnut } from 'react-chartjs-2';
+import { Link } from "react-router-dom";
 
-const data = {
+function Transactions() {
+  const [startDate, setStartDate] = useState(new Date('January 1, 2021 23:15:30'));
+  const [endDate, setEndDate] = useState(new Date('Novemeber 1, 2021 23:15:30'));
+  const [transactions, setTransactions] = useState([]);
+  const [doughnutMonth, setDoughnutMonth] = useState(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(new Date('January 1, 2021 23:15:30')));
+  var doughnutTypes = {};
+  var barGraphData = [];
+  const bar = useRef();
+  const doughnut = useRef();
+
+  const barOptions = {
+    maintainAspectRatio: true,
+    scales: {
+        yAxes: [
+        {
+            ticks: {
+                beginAtZero: true,
+            },
+        },
+        ],
+    },
+    scales: {
+      y: {
+          ticks: {
+              // Include a dollar sign in the ticks
+              callback: function(value, index, values) {
+                  return '$' + value;
+              }
+          }
+      }
+    },
+    layout: {
+      padding: {
+        top: 20,
+        right: 30,
+        left: 20,
+        bottom: 0
+      },
+    },
+    onClick: (e) => {
+      console.log(e);
+      let month = e.chart.scales.x.getValueForPixel(e.x);
+      let newDate = new Date(startDate.getFullYear(), (startDate.getMonth() + month));
+      let doughnutData = getDoughnutData(newDate);
+      let labels = Object.getOwnPropertyNames(doughnutData);
+      let totals = Object.values(doughnutData)
+      try {
+        doughnut.current.data.labels = labels;
+        doughnut.current.data.datasets[0].data = totals;
+        doughnut.current.update();
+        console.log(bar.current.data);
+        //setDoughnutMonth(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(newDate));
+      } catch(e) {
+        console.error(e);
+      }
+
+    },
+  };
+
+  const barData = {
     labels: [],
     datasets: [
         {
@@ -31,37 +91,37 @@ const data = {
         borderWidth: 1,
         },
     ],
-};
+  };
 
-const options = {
-    maintainAspectRatio: true,
-    scales: {
-        yAxes: [
-        {
-            ticks: {
-                beginAtZero: true,
-            },
-        },
+  const doughnutData = {
+  labels: ['Food', 'Rent', 'Entertainment', 'Utilities', 'Loans', 'Gas'],
+    datasets: [
+      {
+        label: 'Monthly Cost Breakdown',
+        data: [0, 1450, 45, 120, 600, 115],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
         ],
-    },
-    layout: {
-      padding: {
-        top: 20,
-        right: 30,
-        left: 20,
-        bottom: 0
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)',
+        ],
+        borderWidth: 1,
       },
-    },
-};
+    ],
+  };
 
+  const doughnutOptions = {};
 
-function Transactions() {
-  const [startDate, setStartDate] = useState(new Date('January 1, 2021 23:15:30'));
-  const [endDate, setEndDate] = useState(new Date('Novemeber 1, 2021 23:15:30'));
-  const [transactions, setTransactions] = useState([]);
-  var barGraphData = [];
-  const bar = useRef();
-  
   useEffect(() => {
     axios.get(`/transaction`)
       .then(res => {
@@ -125,18 +185,32 @@ function Transactions() {
     return monthlySpending;
   }
 
+  const getDoughnutData = (transactionDate) => {
+    doughnutTypes = {};
+    transactions.forEach((transaction) => {
+      let date = new Date(transaction.date);
+      if (date.getMonth() == transactionDate.getMonth() && date.getFullYear() === transactionDate.getFullYear()) {
+        if (doughnutTypes.hasOwnProperty(transaction.type)) {
+          doughnutTypes[transaction.type] += transaction.price;
+        } else {
+          doughnutTypes[transaction.type] = transaction.price;
+        }
+      }
+    });
+    return doughnutTypes;
+  }
+
   const updateChart = () => {
     var spending = getMonthlySpending();
     var labels = [];
     var totals = [];
     spending.forEach((item) => {
-      labels.push(new Intl.DateTimeFormat('en-US', { month: 'short'}).format(item.date));
+      labels.push(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(item.date));
       totals.push(item.total);
     });
     try {
       bar.current.data.labels = labels;
       bar.current.data.datasets[0].data = totals;
-      console.log(bar);
       bar.current.update();
     }
     catch (e) {
@@ -161,9 +235,14 @@ function Transactions() {
         <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
         <div className="bar">
           <h2 className="graph-title">Monthly Spending</h2>
-          <Bar data={data} ref={bar} options={options} />
+          <Bar data={barData} ref={bar} options={barOptions} />
+        </div>
+        <div className="doughnut">
+          <h2 className="doughnut-title">Breakdown for {doughnutMonth}</h2>
+          <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
         </div>
       </div>
+      <Link to='/loan'>Loan</Link>
     </div>   
   );
 }

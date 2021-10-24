@@ -9,6 +9,7 @@ import {
 import Home from './pages/Home.js';
 import Budget from './pages/Budget.js';
 import Transactions from './pages/Transactions.js';
+import Loan from './pages/Loan.js';
 
 function App() {
 
@@ -33,6 +34,9 @@ function App() {
           </Route>
           <Route path="/transactions">
             <Transactions />
+          </Route>
+          <Route path="/loan">
+            <Loan />
           </Route>
           <Route path="/">
             <Home />
