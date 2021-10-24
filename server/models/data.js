@@ -108,13 +108,20 @@ function randomPrice() {
     return (Math.random() * 100);
 }
 
+var types = ['Food', 'Utilities', 'Rent', 'Entertainment', 'Loan'];
+function randomType() {
+    var rand = Math.random() * (types.length - 1);
+    return types[rand.toFixed(0)];
+}
+
 var data = [];
 for (var i = 0; i < 10; i++) {
     companies.forEach((company) => {
         data.push({
             "name": company,
             "date": randomDate(new Date("January 1, 2021"), new Date("Decemeber 1, 2021")),
-            "price": parseFloat(randomPrice().toFixed(2))
+            "price": parseFloat(randomPrice().toFixed(2)),
+            "type": randomType()
         })
     });
 }

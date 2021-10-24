@@ -6,7 +6,8 @@ exports.create = (req, res) => {
     const transaction = new Transaction({
         name: req.body.name,
         date: req.body.date,
-        price: req.body.price
+        price: req.body.price,
+        type: req.body.type
     });
 
     // Save Transaction in the database
@@ -22,7 +23,7 @@ exports.create = (req, res) => {
 
 // Retrieve and return all transactions from the database.
 exports.findAll = (req, res) => {
-    Transaction.find()
+    Transaction.find().sort({"date": -1})
     .then(transaction => {
         res.send(transaction);
     }).catch(err => {
