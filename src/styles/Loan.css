@@ -1,0 +1,16 @@
+.balance {
+margin-top: 100px;
+margin-left: 270px;
+font-size: x-large;
+line-height: 15px;
+}
+
+.loan-info {
+    display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content:space-around;
+  margin-top: 35px;
+  padding: 30px;
+  line-height: 10px;
+}
