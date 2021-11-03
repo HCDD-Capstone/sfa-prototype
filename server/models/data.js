@@ -126,6 +126,14 @@ for (var i = 0; i < 10; i++) {
     });
 }
 
+var loanData = {
+    "balance": 30000,
+    "remainingTerm": 120,
+    "interestRate": 6.17,
+    "title": "Student Loan 1"
+}
+
 module.exports = {
-    data: data
+    data: data,
+    loanData: loanData
 }

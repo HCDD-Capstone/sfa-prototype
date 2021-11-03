@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import LoanCard from '../components/LoanCard';
+import axios from 'axios';
 
 const loan = {
   "balance": 4000,
@@ -13,6 +14,13 @@ function Loan() {
   const [interestRate, setInterestRate] = useState(loan.interestRate);
   const [payment, setPayment] = useState(0);
   const [amountPaid, setAmountPaid] = useState(0);
+
+  useEffect(() => {
+    axios.get(`/loans`)
+      .then(res => {
+        console.log(res.data);
+      })
+  }, []); 
 
   const calculateDefaultPayment = () => {
     let monthlyRate = interestRate / 12 / 100;
@@ -68,6 +76,7 @@ function Loan() {
         <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
       </label>
       <button onClick={simulatePayment}>Simulate 1 Month</button>
+      <div>This will be a graph</div>
     </div>
     
   );
