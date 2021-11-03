@@ -54,16 +54,20 @@ function Loan() {
           <div>{interestRate}%</div>
         </div>
       </div>
+      <div className="card1">
       <LoanCard 
         value={'$' + calculateDefaultPayment()} 
         title="Your Minimum Monthly Payment" 
         description="You need to at least pay this much each month.">
       </LoanCard>
+      </div>
+      <div className="card2">
       <LoanCard 
         value={'$' + amountPaid.toFixed(2)} 
         title="Amount Paid" 
         description="This is how much you have paid so far.">
       </LoanCard>
+      </div>
       <label>
         Monthly Payment: $
         <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
