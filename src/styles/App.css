@@ -8,3 +8,13 @@
   align-items: flex-start;
   justify-content: space-around;
 }
+
+.main {
+  height: 150px;
+  background-color: rgb(120, 179, 219);
+    background-image:
+      linear-gradient(
+        rgb(119, 189, 218), #ffffff
+      );
+}
+
