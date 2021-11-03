@@ -1,9 +1,16 @@
 import React from 'react';
 
+const categories = {
+  
+}
+
 function Budget() {
 
   return (
-    <h2>Budget</h2>
+    <div>
+      <h2>Budget</h2>
+    </div>
+    
     
   );
 }

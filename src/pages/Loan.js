@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import LoanCard from '../components/LoanCard';
 import axios from 'axios';
+import '../styles/Loan.css';
 
 const loan = {
   "balance": 4000,
@@ -9,16 +10,21 @@ const loan = {
 }
 
 function Loan() {
-  const [balance, setBalance] = useState(loan.balance);
-  const [remainingTerm, setRemainingTerm] = useState(loan.remainingTerm)
-  const [interestRate, setInterestRate] = useState(loan.interestRate);
+  const [balance, setBalance] = useState(0);
+  const [remainingTerm, setRemainingTerm] = useState(0)
+  const [interestRate, setInterestRate] = useState(0);
+  const [loanTitle, setLoanTitle] = useState('');
   const [payment, setPayment] = useState(0);
   const [amountPaid, setAmountPaid] = useState(0);
 
   useEffect(() => {
     axios.get(`/loans`)
       .then(res => {
-        console.log(res.data);
+        let loan = res.data[0];
+        setBalance(loan.balance);
+        setRemainingTerm(loan.remainingTerm);
+        setInterestRate(loan.interestRate);
+        setLoanTitle(loan.title);
       })
   }, []); 
 
@@ -45,19 +51,19 @@ function Loan() {
     <div className="loan-wrapper">
       <div className="balance">
         Loan Balance
-        <h3>${balance.toFixed(2)}</h3>
+        <h1>${balance.toFixed(2)}</h1>
       </div>
       <div className="loan-info">
         <div>
-          <div>Total Loans</div>
+          <h4>Total Loans</h4>
           <div>1</div>
         </div>
         <div>
-          <div>Remaining Term</div>
+          <h4>Remaining Term</h4>
           <div>{remainingTerm} months</div>
         </div>
         <div>
-          <div>Current APR</div>
+          <h4>Current APR</h4>
           <div>{interestRate}%</div>
         </div>
       </div>
