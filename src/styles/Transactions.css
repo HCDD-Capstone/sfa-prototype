@@ -17,6 +17,7 @@
     height: 100%;
     margin: 0em;
     overflow-y: auto;
+    background-color: blue;
 }
 
 html, body {

@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const axios = require("axios");
 const path = require('path');
 const mongoose = require('mongoose');
 const dbConfig = require('./config/database.config.js');
@@ -10,6 +9,7 @@ const app = express();
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 require('./routes/transaction.routes.js')(app);
+require('./routes/loan.routes.js')(app);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
