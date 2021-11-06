@@ -43,7 +43,7 @@ function Scenarios() {
             <div className="input">
                 {renderInput()}
             </div>
-            <div className="details">
+            <div>
                 <div>
                     <div>icon here</div><div>You will make ____ fewer payments than current plan</div>
                 </div>
