@@ -10,6 +10,8 @@ import Home from './pages/Home.js';
 import Budget from './pages/Budget.js';
 import Transactions from './pages/Transactions.js';
 import Loan from './pages/Loan.js';
+import WhatIf from './pages/WhatIf';
+import Scenarios from './pages/Scenarios';
 
 function App() {
 
@@ -27,11 +29,20 @@ function App() {
           <div>
             <Link to="/transactions">Transactions</Link>
           </div>
+          <div>
+            <Link to="/whatif">What If</Link>
+          </div>
         </nav>
 
         <Switch>
           <Route path="/budget">
             <Budget />
+          </Route>
+          <Route path="/whatif">
+            <WhatIf />
+          </Route>
+          <Route path="/scenarios">
+            <Scenarios />
           </Route>
           <Route path="/transactions">
             <Transactions />
