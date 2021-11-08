@@ -1,0 +1,29 @@
+.title {
+    
+
+}
+
+.drop-down {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content:space-around;
+  background-color: #293041;
+  border-radius: 21px;
+  box-shadow: 0px 4px 4px #00000040;
+  height: 285px;
+  left: 300px;
+  position: absolute;
+  top: 324px;
+  width: 260px;
+  
+}
+
+.menu {
+    
+}
+
+.graph {
+    margin-top: 400px;
+    margin-left: 900px;
+}

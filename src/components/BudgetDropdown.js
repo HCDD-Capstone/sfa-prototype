@@ -1,5 +1,6 @@
 import React from 'react';
 import { Dropdown } from 'react-bootstrap';
+import '../styles/Budget.css';
 
 const BudgetDropdown = (props) => {
 
@@ -8,6 +9,7 @@ const BudgetDropdown = (props) => {
       }
 
     return (
+        <div className="menu">
         <Dropdown autoClose="outside">
             <Dropdown.Toggle variant="primary">
                 {capitalizeFirstLetter(props.category)}
@@ -18,6 +20,7 @@ const BudgetDropdown = (props) => {
                 })}
             </Dropdown.Menu>
         </Dropdown>
+        </div>
     )   
 }
 
