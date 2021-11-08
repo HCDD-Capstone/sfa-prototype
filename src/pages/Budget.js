@@ -1,5 +1,6 @@
 import React from 'react';
 import BudgetDropdown from '../components/BudgetDropdown.js';
+import '../styles/Budget.css';
 
 const categories = ["food", "rent", "entertainment", "utilities", "car", "loans", "other"];
 
@@ -43,14 +44,14 @@ const subcategories = [
 function Budget() {
 
   return (
-    <div>
+    <div className="title">
       <h2>Budget</h2>
-      <div>
+      <div className="drop-down">
         {categories.map((category, i) => {
           return <BudgetDropdown category={category} subcategories={subcategories[i]} key={category}></BudgetDropdown>
         })}
       </div>
-      <div>Doughnut Graph on the Right here</div>
+      <div className="graph">Doughnut Graph on the Right here</div>
     </div>
     
     
