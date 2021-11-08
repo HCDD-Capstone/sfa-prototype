@@ -2,4 +2,17 @@
     display:flex;
     flex-direction:column;
     align-items: flex-start;
+    border-style: solid;
+    border-color: white;
+    overflow-wrap: normal;
+    color:white;
+    
+
+    background-color: #293041;
+    border-radius: 5px;
+    box-shadow: 0px 4px 4px #f3f0f0;
+    cursor: pointer;
+    position: absolute;
+  
+    
 }

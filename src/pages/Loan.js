@@ -59,11 +59,11 @@ function Loan() {
           <div>1</div>
         </div>
         <div>
-          <h4>Remaining Term</h4>
+          <h3>Remaining Term</h3>
           <div>{remainingTerm} months</div>
         </div>
         <div>
-          <h4>Current APR</h4>
+          <h3>Current APR</h3>
           <div>{interestRate}%</div>
         </div>
       </div>
@@ -81,12 +81,14 @@ function Loan() {
         description="This is how much you have paid so far.">
       </LoanCard>
       </div>
+      <div className="card3">
       <label>
         Monthly Payment: $
         <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
       </label>
       <button onClick={simulatePayment}>Simulate 1 Month</button>
-      <div>This will be a graph</div>
+      </div>
+      <div className="graph">This will be a graph</div>
     </div>
     
   );

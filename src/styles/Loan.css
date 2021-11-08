@@ -16,9 +16,23 @@ line-height: 15px;
 }
 
 .card1 {
-  margin-left: 270px;
+  margin-left: 200px;
+  margin-top: 40px;
 }
 
 .card2 {
+  margin-left: 600px;
+  margin-top: 40px;
+}
 
+.card3 {
+  margin-top: 160px;
+  margin-left: 200px;
+  display:flex;
+  flex-direction:row;
+  align-items: flex-start;
+}
+
+.graph {
+    margin-left: 1100px;
 }
