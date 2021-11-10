@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import { Doughnut } from 'react-chartjs-2';
 import BudgetDropdown from '../components/BudgetDropdown.js';
+import '../styles/Budget.css';
 
 function Budget() {
   const [categories, setCategories] = useState([]);
@@ -27,7 +29,34 @@ function Budget() {
   const [clothes, setClothes] = useState(0);
   const [subcategories, setSubcategories] = useState([[grocery, fastfood, bar],[rent, rentinsurance],[tv, events, otherentertainment],[gasutils, water, electricity],[carinsurance,cargas,carrepairs],[mortgage, studentloans, carloan], [health, children, clothes]]);
   const [setters, setSetters] = useState([[setGrocery, setFastFood, setBar], [setRent, setRentInsurance],[setTv, setEvents, setOtherEnt], [setGasUtils, setWater, setElectricity], [setCarIns, setCarGas, setCarRepairs], [setMortgage, setStudentLoans, setCarLoan], [setHealth, setChildren, setClothes]]);
-
+  var doughnut = useRef();
+  const doughnutData = {
+    labels: ['Food', 'Rent', 'Entertainment', 'Utilities', 'Loans', 'Gas'],
+      datasets: [
+        {
+          label: 'Total',
+          data: [0, 1450, 45, 120, 600, 115],
+          backgroundColor: [
+            'rgba(255, 99, 132, 0.2)',
+            'rgba(54, 162, 235, 0.2)',
+            'rgba(255, 206, 86, 0.2)',
+            'rgba(75, 192, 192, 0.2)',
+            'rgba(153, 102, 255, 0.2)',
+            'rgba(255, 159, 64, 0.2)',
+          ],
+          borderColor: [
+            'rgba(255, 99, 132, 1)',
+            'rgba(54, 162, 235, 1)',
+            'rgba(255, 206, 86, 1)',
+            'rgba(75, 192, 192, 1)',
+            'rgba(153, 102, 255, 1)',
+            'rgba(255, 159, 64, 1)',
+          ],
+          borderWidth: 1,
+        },
+      ],
+    };
+  
   useEffect(() => {
     axios.get(`/budgets`)
     .then(res => {
@@ -91,9 +120,9 @@ function Budget() {
   }
 
   return (
-    <div>
+    <div className="title">
       <h2>Budget</h2>
-      <div>
+      <div className="drop-down">
         {categories.map((category, i) => {
           let mainCategory = '';
           if (Object.getOwnPropertyNames(category)[0] === "_id") {
@@ -105,7 +134,9 @@ function Budget() {
         })}
       </div>
       <button>Save Budget</button>
-      <div>Doughnut Graph on the Right here</div>
+      <div>
+        <Doughnut data={doughnutData} ref={doughnut} />
+      </div>
     </div>
     
     
