@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: row;
     margin: .5%;
+    border: 2px solid black;
 }
 
 .main-content {
@@ -11,13 +12,24 @@
     align-items: space-between;
     height: 600px;
     margin: 0em;
+    border: 2px solid black;
 }
 
 .details {
     height: 100%;
+    width: 100%;
     margin: 0em;
     overflow-y: auto;
     background-color: blue;
+    border: 2px solid black;
+}
+
+.detail-grid {
+    height: 100%;
+    margin: 0em;
+    overflow-y: auto;
+    background-color: blue;
+    border: 2px solid black;
 }
 
 html, body {
@@ -30,5 +42,13 @@ html, body {
     flex-direction: column;
     flex-grow: 2;
     width: 100%;
+    height: 100%;
     align-items: center;
+    border: 2px solid black;
+}
+
+.doughnut {
+    border: 2px solid black;
+    width: 100%;
+    height: 100%;
 }
