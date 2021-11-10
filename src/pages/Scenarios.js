@@ -1,9 +1,35 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom'
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import axios from 'axios';
+import algebra from 'algebra.js';
+import { evaluate } from 'mathjs';
+
 
 function Scenarios() {
     const location = useLocation();
     const { type } = location.state;
+    const [monthlyPayment, setMonthlyPayment] = useState(0);
+    const [lumpSum, setLumpSum] = useState(0);
+    const [months, setMonths] = useState(0);
+    const [payLess, setPayLess] = useState(0);
+    const [interestRate, setInterestRate] = useState(0);
+    const [lessPayments, setLessPayments] = useState(0);
+    const [monthsLeft, setMonthsLeft] = useState(0);
+    const [savings, setSavings] = useState(0);
+    const [loan, setLoan] = useState({});
+
+    let trueCost = "(r * p * n) / (1 - ((1 + r)^-n))";
+    // v = present value, p = payment
+    let remainingBal = "(v * (1 + r)^n) - (p * (((1 + r)^n) - 1) / r)";
+
+    useEffect(() => {
+        axios.get(`/loans`)
+        .then(res => {
+            setLoan(res.data[0]);
+            setInterestRate(loan.interestRate);
+            var monthlyRate = interestRate / 12 / 100;
+        })
+    }, []); 
 
     const renderHeader = () => {
         if (type === "each-month") {
@@ -45,15 +71,16 @@ function Scenarios() {
             </div>
             <div>
                 <div>
-                    <div>icon here</div><div>You will make ____ fewer payments than current plan</div>
+                    <div>icon here</div><div>You will make {lessPayments} fewer payments than current plan</div>
                 </div>
                 <div>
-                    <div>icon here</div><div>You will complete paying off your loan in ____ months</div>
+                    <div>icon here</div><div>You will complete paying off your loan in {monthsLeft} months</div>
                 </div>
                 <div>
-                    <div>icon here</div><div>You will save $____ in interest</div>
+                    <div>icon here</div><div>You will save ${savings} in interest</div>
                 </div>
             </div>
+            <button>Calculate</button>
             <div>
                 graph will go here on right
             </div>

@@ -27,6 +27,9 @@ function App() {
             <Link to="/budget">Budget</Link>
           </div>
           <div>
+            <Link to='/loan'>Loan</Link>
+          </div>
+          <div>
             <Link to="/transactions">Transactions</Link>
           </div>
           <div>

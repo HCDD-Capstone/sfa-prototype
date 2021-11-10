@@ -242,7 +242,6 @@ function Transactions() {
           <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
         </div>
       </div>
-      <Link to='/loan'>Loan</Link>
     </div>   
   );
 }

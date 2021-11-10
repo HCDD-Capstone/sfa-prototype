@@ -10,6 +10,8 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 require('./routes/transaction.routes.js')(app);
 require('./routes/loan.routes.js')(app);
+require('./routes/budget.routes.js')(app);
+
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -3,12 +3,6 @@ import LoanCard from '../components/LoanCard';
 import axios from 'axios';
 import '../styles/Loan.css';
 
-const loan = {
-  "balance": 4000,
-  "remainingTerm": 120,
-  "interestRate": 6.34
-}
-
 function Loan() {
   const [balance, setBalance] = useState(0);
   const [remainingTerm, setRemainingTerm] = useState(0)
