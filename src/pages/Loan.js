@@ -3,6 +3,9 @@ import LoanCard from '../components/LoanCard';
 import axios from 'axios';
 import '../styles/Loan.css';
 import { Line } from 'react-chartjs-2';
+import "react-grid-layout/css/styles.css"
+import "react-resizable/css/styles.css"
+import GridLayout from 'react-grid-layout'
 
 const data = {
   labels: [1, 2, 3, 4],
@@ -82,11 +85,14 @@ function Loan() {
   }
 
   return (
-    <div className="loan-wrapper">
+    <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
+      <div key="e" data-grid={{x: 1, y: 4, w: 4, h: 2, static: true}}>
       <div className="balance">
         Loan Balance
         <h1>${balance.toFixed(2)}</h1>
       </div>
+      </div>
+      <div key="d" data-grid={{x: 1, y: 6, w: 5, h: 3, static: true}}>
       <div className="loan-info">
         <div>
           <h4>Total Loans</h4>
@@ -101,6 +107,8 @@ function Loan() {
           <div>{interestRate}%</div>
         </div>
       </div>
+      </div>
+      <div key="b" data-grid={{x: 1, y: 9, w: 2, h: 2, static: true}}>
       <div className="card1">
         <LoanCard 
           value={'$' + calculateDefaultPayment()} 
@@ -108,31 +116,38 @@ function Loan() {
           description="You need to at least pay this much each month.">
         </LoanCard>
       </div>
-      <div className="card2">
-        <LoanCard 
-          value={'$' + amountPaid.toFixed(2)} 
-          title="Amount Paid" 
-          description="This is how much you have paid so far.">
-        </LoanCard>
       </div>
-      <div className="card4">
-        <LoanCard 
-          value={'$' + totalInterest.toFixed(2)} 
-          title="Amount in Interest" 
-          description="This is how much you have paid in interest so far.">
-        </LoanCard>
+      <div key="c" data-grid={{x: 3, y: 9, w: 2, h: 2, static: true}}>
+        <div className="card2">
+          <LoanCard 
+            value={'$' + amountPaid.toFixed(2)} 
+            title="Amount Paid" 
+            description="This is how much you have paid so far.">
+          </LoanCard>
+        </div>
       </div>
-      <div className="card3">
-      <label>
-        Monthly Payment: $
-        <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
-      </label>
-      <button onClick={simulatePayment}>Simulate 1 Month</button>
+      <div key="f" data-grid={{x: 5, y: 9, w: 2, h: 2, static: true}}>
+        <div className="card4">
+          <LoanCard 
+            value={'$' + totalInterest.toFixed(2)} 
+            title="Amount in Interest" 
+            description="This is how much you have paid in interest so far.">
+          </LoanCard>
+        </div>
       </div>
-      <div className="graph">
+      <div key="a" data-grid={{x: 1, y: 13, w: 2, h: 2, static: true}}>
+        <div className="card3">
+          <label>
+            Monthly Payment: $
+            <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
+          </label>
+          <button onClick={simulatePayment}>Simulate 1 Month</button>
+        </div>
+      </div>
+      <div key="z" data-grid={{x: 7, y: 3, w: 4, h: 5, static: true}}>
         <Line data={data} options={options} />
       </div>
-    </div>
+    </GridLayout>
     
   );
 }
