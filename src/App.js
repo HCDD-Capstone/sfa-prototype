@@ -26,6 +26,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/budget">Budget</Nav.Link>
+              <Nav.Link href="/loan">Loan</Nav.Link>
               <Nav.Link href="/transactions">Transactions</Nav.Link>
               <Nav.Link href="/whatif">What If</Nav.Link>
             </Nav>
