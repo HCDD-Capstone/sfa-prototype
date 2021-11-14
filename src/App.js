@@ -12,27 +12,36 @@ import Transactions from './pages/Transactions.js';
 import Loan from './pages/Loan.js';
 import WhatIf from './pages/WhatIf';
 import Scenarios from './pages/Scenarios';
+import { Container, Nav, Navbar, NavbarBrand, NavDropdown, NavItem } from 'react-bootstrap';
+import logo from "./logo/sfalogo.png";
 
 function App() {
 
   return (
     <Router>
       <div className="main"> 
-        
-        <nav className="nav">
-          <div>
-            <Link to="/">Home</Link>
-          </div>
-          <div>
-            <Link to="/budget">Budget</Link>
-          </div>
-          <div>
-            <Link to="/transactions">Transactions</Link>
-          </div>
-          <div>
-            <Link to="/whatif">What If</Link>
-          </div>
-        </nav>
+      <Navbar bg="none" variant="light">
+        <Container>
+          <Navbar.Brand href="/">
+            <img
+              src={logo}
+              width="150"
+              height="150"
+              className="d-inline-block"
+              alt="React Bootstrap logo"
+            />
+            Home
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="me-auto">
+              <Nav.Link href="/budget">Budget</Nav.Link>
+              <Nav.Link href="/transactions">Transactions</Nav.Link>
+              <Nav.Link href="/whatif">What If</Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
 
         <Switch>
           <Route path="/budget">

@@ -220,7 +220,7 @@ function Transactions() {
 
   return (
     <div className="transactions-wrapper">
-      <h2>Transactions</h2>
+      <h2>Transactions on Debit card ending in *6843</h2>
       <div className="dates">
         <div className="start-date">
           Start Date:
