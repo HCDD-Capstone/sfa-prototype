@@ -12,11 +12,11 @@ const BudgetDropdown = (props) => {
         <div className="menu">
         <Dropdown autoClose="outside">
             <Dropdown.Toggle variant="primary">
-                {capitalizeFirstLetter(props.category)}
+                {capitalizeFirstLetter(Object.keys(props.category)[0])}
             </Dropdown.Toggle>
             <Dropdown.Menu>
-                {Object.keys(props.subcategories).map((subcategory, i) => {
-                    return <Dropdown.Item key={subcategory}>{capitalizeFirstLetter(subcategory)}: $<input onChange={(value) => props.setters[i](value.target.value)}></input></Dropdown.Item>
+                {Object.keys(props.subcategories).map((subcategory, i) => { 
+                    return <Dropdown.Item key={subcategory}><label>{capitalizeFirstLetter(subcategory)}: $<input name={subcategory} value={props.category[Object.keys(props.category)[0]][subcategory]} onChange={(e) => props.setters[i](e.target.value)}></input></label></Dropdown.Item>
                 })}
             </Dropdown.Menu>
         </Dropdown>

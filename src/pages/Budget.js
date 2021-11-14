@@ -29,13 +29,21 @@ function Budget() {
   const [clothes, setClothes] = useState(0);
   const [subcategories, setSubcategories] = useState([[grocery, fastfood, bar],[rent, rentinsurance],[tv, events, otherentertainment],[gasutils, water, electricity],[carinsurance,cargas,carrepairs],[mortgage, studentloans, carloan], [health, children, clothes]]);
   const [setters, setSetters] = useState([[setGrocery, setFastFood, setBar], [setRent, setRentInsurance],[setTv, setEvents, setOtherEnt], [setGasUtils, setWater, setElectricity], [setCarIns, setCarGas, setCarRepairs], [setMortgage, setStudentLoans, setCarLoan], [setHealth, setChildren, setClothes]]);
+  
+  const [foodTotal, setFoodTotal] = useState(0);
+  const [rentTotal, setRentTotal] = useState(0);
+  const [loanTotal, setLoanTotal] = useState(0);
+  const [entTotal, setEntTotal] = useState(0);
+  const [utilTotal, setUtilTotal] = useState(0);
+  const [carTotal, setCarTotal] = useState(0);
+  const [otherTotal, setOtherTotal] = useState(0);
   var doughnut = useRef();
   const doughnutData = {
-    labels: ['Food', 'Rent', 'Entertainment', 'Utilities', 'Loans', 'Gas'],
+    labels: ['Food', 'Rent', 'Entertainment', 'Utilities', 'Loans', 'Car', 'Other'],
       datasets: [
         {
           label: 'Total',
-          data: [0, 1450, 45, 120, 600, 115],
+          data: [foodTotal, rentTotal, entTotal, utilTotal, loanTotal, carTotal, otherTotal],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',
@@ -60,62 +68,120 @@ function Budget() {
   useEffect(() => {
     axios.get(`/budgets`)
     .then(res => {
-      setCategories(res.data[0].categories);
+      setGrocery(res.data[0]['grocery store']);
+      setFastFood(res.data[0]['fast food']);
+      setBar(res.data[0]['bar']);
+      setRent(res.data[0]['payment']);
+      setRentInsurance(res.data[0]["renter's insurance"]);
+      setTv(res.data[0]['TV Subscriptions']);
+      setEvents(res.data[0]['Live Events']);
+      setOtherEnt(res.data[0]['Other']);
+      setGasUtils(res.data[0]['Gas']);
+      setWater(res.data[0]['water']);
+      setElectricity(res.data[0]['Electricity']);
+      setCarIns(res.data[0]['insurance']);
+      setCarGas(res.data[0]['gas']);
+      setCarRepairs(res.data[0]['repairs']);
+      setMortgage(res.data[0]['mortgage']);
+      setStudentLoans(res.data[0]['Student Loans']);
+      setCarLoan(res.data[0]['car']);
+      setHealth(res.data[0]['Health Insurance']);
+      setChildren(res.data[0]["Children's Needs"]);
+      setClothes(res.data[0]['Clothes']);
       setId(res.data[0]._id);
     })
   }, [])
 
   useEffect(() => {
-    categories.map((category, i) => {
-      subcategories[i].map((subcategory, j) => {
-        setters[i][j](subcategories[i][j]);
-      });
-    });
-  }, [categories]);
+    let temp = [
+      {
+        "food": 
+        {
+          "grocery store": grocery,
+          "fast food": fastfood,
+          "bar": bar
+        }
+      },
+      {
+        "rent":
+        { 
+          "payment": rent,
+          "renter's insurance": rentinsurance,
+        }
+      },
+      {
+        "entertainment":
+        {
+          "TV Subscriptions": tv,
+          "Live Events": events,
+          "Other": otherentertainment
+        }
+      },
+      {
+        "utilities":
+        {
+          "Gas": gasutils,
+          "water": water,
+          "Electricity": electricity,
+        }
+      },
+      {
+        "car":
+        {
+          "insurance": carinsurance,
+          "gas": cargas,
+          "repairs": carrepairs
+        }
+      },
+      {
+        "loans":
+        {
+          "mortgage": mortgage,
+          "Student Loans": studentloans,
+          "car": carloan,
+        }
+      },
+      {
+        "other":
+        {
+          "Health Insurance": health,
+          "Children's Needs": children,
+          "Clothes": clothes
+        }
+      }];
+      setCategories(temp);
+      setFoodTotal(parseFloat(grocery) + parseFloat(fastfood) + parseFloat(bar));
+      setRentTotal(parseFloat(rent) + parseFloat(rentinsurance));
+      setEntTotal(parseFloat(tv) + parseFloat(events) + parseFloat(otherentertainment));
+      setUtilTotal(parseFloat(gasutils) + parseFloat(water) + parseFloat(electricity));
+      setCarTotal(parseFloat(carinsurance) + parseFloat(cargas) + parseFloat(carrepairs));
+      setLoanTotal(parseFloat(mortgage) + parseFloat(studentloans) + parseFloat(carloan));
+      setOtherTotal(parseFloat(health) + parseFloat(children) + parseFloat(clothes));
+  }, [grocery, fastfood, bar, rent, rentinsurance, tv, events, otherentertainment, gasutils, water, electricity, carinsurance, cargas, carrepairs, mortgage, studentloans, carloan,health, children, clothes])
 
   const saveBudget = () => {
     axios.put(`/budgets/${id}`, 
     { 
-      food: {
-        grocery: grocery,
-        fastfood: fastfood,
-        bar: bar,
-      },
-      rent:
-      {
-          rent: rent,
-          rentinsurance: rentinsurance
-      },
-      entertainment:
-      {
-          tv: tv,
-          events: events,
-          otherentertainment: otherentertainment
-      },
-      utilities:
-      {
-          gasutils: gasutils,
-          water: water,
-          electricity: electricity
-      },
-      car:
-      {
-          carinsurance: carinsurance,
-          cargas: cargas,
-          carrepairs: carrepairs
-      },
-      loans:
-      {
-          mortgage: mortgage,
-          studentloans: studentloans,
-          carloan: carloan
-      },
-      other:
-      {
-          health: health,
-          children: children,
-          clothes: clothes
-      }
+      grocery: grocery,
+      fastfood: parseFloat(fastfood),
+      bar: parseFloat(bar),
+      rent: parseFloat(rent),
+      rentinsurance: parseFloat(rentinsurance),
+      tv: parseFloat(tv),
+      events: parseFloat(events),
+      otherentertainment: parseFloat(otherentertainment),
+      gasutils: parseFloat(gasutils),
+      water: parseFloat(water),
+      electricity: parseFloat(electricity),
+      carinsurance: parseFloat(carinsurance),
+      cargas: parseFloat(cargas),
+      carrepairs: parseFloat(carrepairs),
+      mortgage: parseFloat(mortgage),
+      studentloans: parseFloat(studentloans),
+      carloan: parseFloat(carloan),
+      health: parseFloat(health),
+      children: parseFloat(children),
+      clothes: parseFloat(clothes)
     });
   }
 
@@ -124,16 +190,10 @@ function Budget() {
       <h2>Budget</h2>
       <div className="drop-down">
         {categories.map((category, i) => {
-          let mainCategory = '';
-          if (Object.getOwnPropertyNames(category)[0] === "_id") {
-            mainCategory = Object.getOwnPropertyNames(category)[1]
-          } else {
-            mainCategory = Object.getOwnPropertyNames(category)[0];
-          }
-          return <BudgetDropdown setters={setters[i]} values={subcategories[i]} category={mainCategory} subcategories={category[mainCategory]} key={mainCategory}></BudgetDropdown>
+          return <BudgetDropdown setters={setters[i]} values={subcategories[i]} category={category} subcategories={category[`${Object.keys(category)[0]}`]} key={Object.keys(category)[0]}></BudgetDropdown>
         })}
       </div>
-      <button>Save Budget</button>
+      <button onClick={saveBudget}>Save Budget</button>
       <div>
         <Doughnut data={doughnutData} ref={doughnut} />
       </div>
