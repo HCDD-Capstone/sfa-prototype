@@ -13,20 +13,30 @@ import Loan from './pages/Loan.js';
 import WhatIf from './pages/WhatIf';
 import Scenarios from './pages/Scenarios';
 import { Container, Nav, Navbar, NavbarBrand, NavDropdown, NavItem } from 'react-bootstrap';
+import logo from "./logo/sfalogo.png";
 
 function App() {
 
   return (
     <Router>
       <div className="main"> 
-      <Navbar bg="dark" variant="dark">
+      <Navbar bg="none" variant="light">
         <Container>
-          <Navbar.Brand href="/">Home</Navbar.Brand>
+          <Navbar.Brand href="/">
+            <img
+              src={logo}
+              width="200"
+              height="200"
+              className="d-inline-block"
+              alt="React Bootstrap logo"
+              
+            />
+            Home
+          </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="/budget">Budget</Nav.Link>
-              <Nav.Link href="/loan">Loan</Nav.Link>
               <Nav.Link href="/transactions">Transactions</Nav.Link>
               <Nav.Link href="/whatif">What If</Nav.Link>
             </Nav>
