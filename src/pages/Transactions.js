@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import GridLayout from 'react-grid-layout'
 import TransactionDetailBox from '../components/TransactionDetailBox';
 import DatePicker from "react-datepicker";
 import '../styles/Transactions.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { Link } from "react-router-dom";
+import "react-grid-layout/css/styles.css"
+import "react-resizable/css/styles.css"
 
 function Transactions() {
   const [startDate, setStartDate] = useState(new Date('January 1, 2021 23:15:30'));
@@ -219,31 +222,64 @@ function Transactions() {
   }
 
   return (
-    <div className="transactions-wrapper">
-      <h2>Transactions on Debit card ending in *6843</h2>
-      <div className="dates">
-        <div className="start-date">
-          Start Date:
-          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+    // <GridLayout className="transactions-wrapper">
+    //   <h2>Transactions</h2>
+      // <div className="dates">
+      //   <div className="start-date">
+      //     Start Date:
+      //     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+      //   </div>
+      //   <div className="end-date">
+      //     End Date:
+      //     <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+      //   </div>
+      // </div>
+    //   <div className="main-content">
+    //     <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
+        // <div className="bar">
+        //   <h2 className="graph-title">Monthly Spending</h2>
+        //   <Bar data={barData} ref={bar} options={barOptions} />
+        // </div>
+        // <div className="doughnut">
+        //   <h2 className="doughnut-title">Breakdown for {doughnutMonth}</h2>
+        //   <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
+        // </div>
+    //   </div>
+    //   <Link to='/loan'>Loan</Link>
+    // </GridLayout>   
+    <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
+        <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1, static: true}}><h3>Transactions</h3></div>
+        <div key="f" data-grid={{x: 12, y: 0, w: 1, h: 1}}>
+          <Link to='/loan'>Loan</Link>
         </div>
-        <div className="end-date">
-          End Date:
-          <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+        <div key="b" data-grid={{x: 0, y: 1, w: 12, h: 2, static: true}}>
+          <div className="dates">
+            <div className="start-date">
+              Start Date:
+              <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+            </div>
+            <div className="end-date">
+              End Date:
+              <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="main-content">
-        <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
-        <div className="bar">
-          <h2 className="graph-title">Monthly Spending</h2>
-          <Bar data={barData} ref={bar} options={barOptions} />
+        <div key="detail-grid" data-grid={{x: 0, y: 4, w: 3, h: 15}}>
+          <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
         </div>
-        <div className="doughnut">
-          <h2 className="doughnut-title">Breakdown for {doughnutMonth}</h2>
-          <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
+        <div key="d" className="bar-grid" data-grid={{x: 3, y: 4, w: 6, h: 15}}>
+          <div className="bar">
+            <h3 className="graph-title">Monthly Spending</h3>
+            <Bar data={barData} ref={bar} options={barOptions} />
+          </div>
         </div>
-      </div>
-      <Link to='/loan'>Loan</Link>
-    </div>   
+        <div key="e" data-grid={{x: 9, y: 4, w: 3, h: 15}}>
+          <div className="doughnut">
+            <h3 className="doughnut-title">Breakdown for {doughnutMonth}</h3>
+            <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
+          </div>
+        </div>
+      </GridLayout>
   );
 }
 

@@ -25,10 +25,11 @@ function App() {
           <Navbar.Brand href="/">
             <img
               src={logo}
-              width="150"
-              height="150"
+              width="200"
+              height="200"
               className="d-inline-block"
               alt="React Bootstrap logo"
+              
             />
             Home
           </Navbar.Brand>
