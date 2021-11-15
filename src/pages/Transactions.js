@@ -249,9 +249,6 @@ function Transactions() {
     // </GridLayout>   
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
         <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1, static: true}}><h3>Transactions</h3></div>
-        <div key="f" data-grid={{x: 12, y: 0, w: 1, h: 1}}>
-          <Link to='/loan'>Loan</Link>
-        </div>
         <div key="b" data-grid={{x: 0, y: 1, w: 12, h: 2, static: true}}>
           <div className="dates">
             <div className="start-date">
