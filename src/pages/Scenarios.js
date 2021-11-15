@@ -143,6 +143,15 @@ function Scenarios() {
         let normalTotal = evaluate(trueCost, {r: monthlyRate, p: balance, n: totalTerm});
         let totalSavings = evaluate(trueCost, {r: monthlyRate, p: balance, n: totalMonths});
         setSavings(normalTotal - totalSavings);
+        try {
+            setTimeout(() => {
+                bar.current.data.datasets[0].data = [normalTotal, totalSavings];
+                bar.current.update();
+            }, 1000);
+        }
+        catch (e) {
+            console.error(e);
+        } 
     }
 
     const calculateLumpSumPayment = () => {
@@ -159,6 +168,15 @@ function Scenarios() {
         let normalTotal = evaluate(trueCost, {r: monthlyRate, p: balance, n: totalTerm});
         let totalSavings = evaluate(trueCost, {r: monthlyRate, p: balance, n: totalMonths});
         setSavings(normalTotal - totalSavings);
+        try {
+            setTimeout(() => {
+                bar.current.data.datasets[0].data = [normalTotal, totalSavings];
+                bar.current.update();
+            }, 1000);
+        }
+        catch (e) {
+            console.error(e);
+        } 
     }
 
     const calculateByTotalsMonth = () => {
@@ -167,6 +185,15 @@ function Scenarios() {
         let normalTotal = evaluate(trueCost, {r: monthlyRate, p: balance, n: totalTerm});
         let totalSavings = evaluate(trueCost, {r: monthlyRate, p: balance, n: months});
         setSavings(normalTotal - totalSavings);
+        try {
+            setTimeout(() => {
+                bar.current.data.datasets[0].data = [normalTotal, totalSavings];
+                bar.current.update();
+            }, 1000);
+        }
+        catch (e) {
+            console.error(e);
+        } 
     }
 
     const calculateLessPayment = () => {
@@ -184,6 +211,15 @@ function Scenarios() {
         let normalTotal = evaluate(trueCost, {r: monthlyRate, p: balance, n: totalTerm});
         let totalSavings = evaluate(trueCost, {r: monthlyRate, p: balance, n: totalMonths});
         setSavings(normalTotal - totalSavings);
+        try {
+            setTimeout(() => {
+                bar.current.data.datasets[0].data = [normalTotal, totalSavings];
+                bar.current.update();
+            }, 1000);
+        }
+        catch (e) {
+            console.error(e);
+        } 
     }
 
     const renderLessPayments = () => {
@@ -221,7 +257,7 @@ function Scenarios() {
                     <div>icon here</div>{renderSavings()}
                 </div>
             </div>
-            <button onClick={() => calculateScenario()}>Calculate</button>
+            <button onClick={calculateScenario}>Calculate</button>
             <div>
                 <Bar data={barData} ref={bar} options={barOptions} />
             </div>

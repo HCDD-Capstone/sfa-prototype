@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import LoanCard from '../components/LoanCard';
 import axios from 'axios';
 import '../styles/Loan.css';
@@ -8,26 +8,26 @@ import "react-resizable/css/styles.css"
 import GridLayout from 'react-grid-layout'
 
 const data = {
-  labels: [1, 2, 3, 4],
+  labels: [],
   datasets: [
     {
-      label: 'Principal',
-      data: [0, 1, 5, 10],
+      label: 'Balance',
       fill: false,
+      data: [],
       backgroundColor: 'rgb(0, 0, 255)',
       borderColor: 'rgba(0, 0, 255)',
     },
     {
       label: 'Interest',
-      data: [0, 0.5, 1, 1.12],
-      fill: false,
+      fill: true,
+      data: [],
       backgroundColor: 'rgb(255, 0, 0)',
       borderColor: 'rgba(255, 0, 0)',
     },
     {
-      label: 'Balance',
-      data: [10, 9, 5, 0],
-      fill: false,
+      label: 'Principal',
+      data: [],
+      fill: true,
       backgroundColor: 'rgb(0, 255, 0)',
       borderColor: 'rgba(0, 255, 0)',
     },
@@ -51,6 +51,12 @@ function Loan() {
   const [loanTitle, setLoanTitle] = useState('');
   const [payment, setPayment] = useState(0);
   const [amountPaid, setAmountPaid] = useState(0);
+  const [totalPrincipal, setTotalPrincipal] = useState(0);
+  const line = useRef();
+  const [count, setCount] = useState(1);
+  const [interestData, setInterestData] = useState([]);
+  const [balanceData, setBalanceData] = useState([]);
+  const [principalData, setPrincipalData] = useState([]);
 
   useEffect(() => {
     axios.get(`/loans`)
@@ -63,6 +69,21 @@ function Loan() {
       })
   }, []); 
 
+  useEffect(() => {
+    try {
+      line.current.data.labels.push(count);
+      setTimeout(() => {
+        line.current.data.datasets[1].data = interestData;
+        line.current.data.datasets[0].data = balanceData;
+        line.current.data.datasets[2].data = principalData;
+        line.current.update();
+      }, 100)
+      setCount(count + 1);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [interestData, balanceData]);
+
   const calculateDefaultPayment = () => {
     let monthlyRate = interestRate / 12 / 100;
     let calc = balance * (monthlyRate * Math.pow((1 + monthlyRate), remainingTerm)) / (Math.pow((1 + monthlyRate), remainingTerm) - 1);
@@ -70,13 +91,27 @@ function Loan() {
   }
 
   const simulatePayment = () => {
+    let monthlyRate = interestRate / 12 / 100;
     calculateOnePayment();
+    setInterestData(prevValues => {
+      const newValues = [...prevValues, (totalInterest + (monthlyRate * balance)).toFixed(2)];
+      return newValues;
+    });
+    setBalanceData(prevValuess => {
+      const newValues = [...prevValuess, balance.toFixed(2)];
+      return newValues;
+    });
+    setPrincipalData(prevValuess => {
+      const newValues = [...prevValuess, (totalPrincipal + (payment - (monthlyRate * balance))).toFixed(2)];
+      return newValues;
+    });
   }
 
   const calculateOnePayment = () => {
     let monthlyRate = interestRate / 12 / 100;
     setInterestPayment(monthlyRate * balance);
     setTotalInterest(totalInterest + (monthlyRate * balance));
+    setTotalPrincipal(totalPrincipal + (payment - (monthlyRate * balance)));
     let calc = (balance * Math.pow((1 + monthlyRate), 1)) - (payment * ((Math.pow((1 + monthlyRate), 1) - 1) / (monthlyRate)));
     setBalance(calc);
     setRemainingTerm(remainingTerm - 1);
@@ -145,7 +180,7 @@ function Loan() {
         </div>
       </div>
       <div key="z" data-grid={{x: 7, y: 3, w: 4, h: 5, static: true}}>
-        <Line data={data} options={options} />
+        <Line ref={line} data={data} options={options} />
       </div>
     </GridLayout>
     
