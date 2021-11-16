@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import Welcome from '../components/Welcome.js';
 import { Line } from 'react-chartjs-2';
+import "react-grid-layout/css/styles.css"
+import "react-resizable/css/styles.css"
+import GridLayout from 'react-grid-layout'
+import '../styles/Home.css';
 
 const data = {
   labels: [2018, 2019, 2020, 2021],
@@ -28,20 +32,28 @@ function Home() {
   const [totalLoan, setTotalLoan] = useState(4000);
 
   return (
-    <div>  
-      <Welcome name="User"></Welcome>
+    <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>  
+    <div key="a" data-grid={{x: 1, y: 0, w: 4, h: 3, static: true}}>
+      <div className="hello">
+        <Welcome name="User"></Welcome>
+      </div>
+      </div>
+      <div key="b" data-grid={{x: 1, y: 3, w: 7, h: 11, static: true}}>
       <div>
         <h1>Total Net Worth</h1>
         <h3></h3>
         <Line data={data} options={options} />
       </div>
+      </div>
+      <div key="c" data-grid={{x: 9, y: 7, w: 3, h: 11, static: true}}>
       <div className="summary">
         <h2>Cash</h2>
         <p>Total: ${totalCash}</p>
         <h2>Liabilities</h2>
         <p>Loan Total: ${totalLoan}</p>
       </div>
-    </div>
+      </div>
+    </GridLayout>
     
   );
 }
