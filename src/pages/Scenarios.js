@@ -3,6 +3,9 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { evaluate } from 'mathjs';
 import { Bar } from 'react-chartjs-2';
+import "react-grid-layout/css/styles.css"
+import "react-resizable/css/styles.css"
+import GridLayout from 'react-grid-layout'
 
 
 function Scenarios() {
@@ -239,13 +242,18 @@ function Scenarios() {
     }
 
     return (
-        <div>
+        <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
+            <div key="a" data-grid={{x: 5, y: 0, w: 4, h: 3, static: true}}>
             <div className="heading">
                 {renderHeader()}
             </div>
+            </div>
+            <div key="b" data-grid={{x: 2, y: 3, w: 4, h: 1, static: true}}>
             <div className="input">
                 {renderInput()}
             </div>
+            </div>
+            <div key="c" data-grid={{x: 2, y: 6, w: 5, h: 3, static: true}}>
             <div>
                 <div>
                     <div>icon here</div>{renderLessPayments()}
@@ -257,11 +265,19 @@ function Scenarios() {
                     <div>icon here</div>{renderSavings()}
                 </div>
             </div>
-            <button onClick={calculateScenario}>Calculate</button>
+            </div>
+            <div key="d" data-grid={{x: 2, y: 4, w: 2, h: 1, static: true}}>
+            <div>
+                <button onClick={calculateScenario}>Calculate</button>
+            </div>
+            </div>
+            <div key="e" data-grid={{x: 7, y: 3, w: 3, h: 11, static: true}}>
             <div>
                 <Bar data={barData} ref={bar} options={barOptions} />
             </div>
-        </div>
+            </div>
+        
+        </GridLayout>
         
         
     );
