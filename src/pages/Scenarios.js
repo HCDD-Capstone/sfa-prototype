@@ -274,7 +274,7 @@ function Scenarios() {
                 <button onClick={calculateScenario}>Calculate</button>
             </div>
             </div>
-            <div key="e" data-grid={{x: 8, y: 3, w: 3, h: 11, static: true}}>
+            <div key="e" data-grid={{x: 7, y: 3, w: 4, h: 11, static: true}}>
             <div>
                 <Bar data={barData} ref={bar} options={barOptions} />
             </div>
