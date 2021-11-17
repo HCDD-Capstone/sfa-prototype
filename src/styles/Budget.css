@@ -1,4 +1,9 @@
 .title {
+position: absolute;
+height: 150px;
+left: -353px;
+top: 35px;
+color:#293041;
 
 }
 
@@ -17,10 +22,14 @@
   
 }
 
-.menu {
+.primary {
   background-color: #293041;
-
     
+}
+
+.dropmenu {
+  background-color: #293041;
+  color: white;
 }
 
 .graph {

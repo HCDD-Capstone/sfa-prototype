@@ -33,7 +33,7 @@ function App() {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="topnav">
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/budget">Budget</Nav.Link>
               <Nav.Link href="/transactions">Transactions</Nav.Link>

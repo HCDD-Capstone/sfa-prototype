@@ -39,17 +39,17 @@ function Home() {
       </div>
       </div>
       <div key="b" data-grid={{x: 1, y: 3, w: 7, h: 11, static: true}}>
-      <div>
-        <h1>Total Net Worth</h1>
-        <h3></h3>
+      <div className="headings">
+        <h1>$6000</h1>
+        <h3>Total Net Worth</h3>
         <Line data={data} options={options} />
       </div>
       </div>
       <div key="c" data-grid={{x: 9, y: 7, w: 3, h: 11, static: true}}>
       <div className="summary">
-        <h2>Cash</h2>
+        <h2><b>Cash</b></h2>
         <p>Total: ${totalCash}</p>
-        <h2>Liabilities</h2>
+        <h2><b>Liabilities</b></h2>
         <p>Loan Total: ${totalLoan}</p>
       </div>
       </div>
