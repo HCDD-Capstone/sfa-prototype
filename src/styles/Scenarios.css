@@ -1,0 +1,30 @@
+h2{
+    font-weight: bold;
+    justify-content: center;
+}
+
+.inputValue{
+    font-size: 20pt;
+}
+
+.body{
+    justify-content: space-around;
+}
+
+.outputData{
+    font-size: 20pt;
+}
+
+input{
+    width: 110pt;
+    font-weight: bold;
+}
+
+/* button{
+    width: 100pt;
+    height: 30pt;
+    background-color: rgb(120, 179, 219);
+    font-weight: bold;
+    font-size: 14pt;
+} */
+

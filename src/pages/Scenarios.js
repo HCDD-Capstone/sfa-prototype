@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { evaluate } from 'mathjs';
 import { Bar } from 'react-chartjs-2';
+import '../styles/Scenarios.css';
 import "react-grid-layout/css/styles.css"
 import "react-resizable/css/styles.css"
 import GridLayout from 'react-grid-layout'
@@ -106,16 +107,16 @@ function Scenarios() {
 
     const renderInput = () => {
         if (type === "each-month") {
-            return <div>Enter Desired Monthly Payment: $<input value={monthlyPayment} onInput={(monthlyPayment) => setMonthlyPayment(monthlyPayment.target.value)}></input></div>
+            return <div class="inputValue">Enter Desired Monthly Payment: $<input value={monthlyPayment} onInput={(monthlyPayment) => setMonthlyPayment(monthlyPayment.target.value)}></input></div>
         }
         if (type === "lump-sum") {
-            return <div>Enter Desired Lump Sum Payment: $<input value={lumpSum} onInput={(lumpSum) => setLumpSum(lumpSum.target.value)}></input></div>
+            return <div class="inputValue">Enter Desired Lump Sum Payment: $<input value={lumpSum} onInput={(lumpSum) => setLumpSum(lumpSum.target.value)}></input></div>
         }
         if (type === "by-time") {
-            return <div>Enter Desired Months to Complete: <input value={months} onInput={(months) => setMonths(months.target.value)}></input> months</div>
+            return <div class="inputValue">Enter Desired Months to Complete: <input value={months} onInput={(months) => setMonths(months.target.value)}></input> months</div>
         }
         if (type === "less-than") {
-            return <div>Enter Amount Less Than Current Plan: $<input value={payLess} onInput={(payLess) => setPayLess(payLess.target.value)}></input></div>
+            return <div class="inputValue">Enter Amount Less Than Current Plan: $<input value={payLess} onInput={(payLess) => setPayLess(payLess.target.value)}></input></div>
         }
     }
 
@@ -227,59 +228,61 @@ function Scenarios() {
 
     const renderLessPayments = () => {
         if (lessPayments < 0) {
-            return <div>You will make {Math.abs(lessPayments)} more payments than current plan</div>
+            return <div class="outputData">You will make {Math.abs(lessPayments)} more payments than current plan.</div>
         } else {
-            return <div>You will make {lessPayments} fewer payments than current plan</div>
+            return <div class="outputData">You will make {lessPayments} fewer payments than current plan.</div>
         }
     }
 
     const renderSavings = () => {
         if (savings < 0) {
-            return <div>You will pay ${Math.abs(savings).toFixed(2)} extra in interest</div>
+            return <div class="outputData">You will pay ${Math.abs(savings).toFixed(2)} extra in interest.</div>
         } else {
-            return <div>You will save ${savings.toFixed(2)} in interest</div>
+            return <div class="outputData">You will save ${savings.toFixed(2)} in interest.</div>
         }
     }
 
     return (
+        <div class="body">
         <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
+        
             <div key="a" data-grid={{x: 5, y: 0, w: 4, h: 3, static: true}}>
             <div className="heading">
                 {renderHeader()}
             </div>
             </div>
-            <div key="b" data-grid={{x: 2, y: 3, w: 4, h: 1, static: true}}>
+            <div key="b" data-grid={{x: 1, y: 3, w: 5, h: 1, static: true}}>
             <div className="input">
                 {renderInput()}
             </div>
             </div>
-            <div key="c" data-grid={{x: 2, y: 6, w: 5, h: 3, static: true}}>
+            <div key="c" data-grid={{x: 1, y: 6, w: 5, h: 3, static: true}}>
             <div>
                 <div>
                     <div>icon here</div>{renderLessPayments()}
                 </div>
                 <div>
-                    <div>icon here</div><div>You will complete paying off your loan in {monthsLeft} months</div>
+                    <div>icon here</div><div class="outputData">You will complete paying off your loan in {monthsLeft} months.</div>
                 </div>
                 <div>
                     <div>icon here</div>{renderSavings()}
                 </div>
             </div>
             </div>
-            <div key="d" data-grid={{x: 2, y: 4, w: 2, h: 1, static: true}}>
+            <div key="d" data-grid={{x: 1, y: 4, w: 2, h: 1, static: true}}>
             <div>
                 <button onClick={calculateScenario}>Calculate</button>
             </div>
             </div>
-            <div key="e" data-grid={{x: 7, y: 3, w: 3, h: 11, static: true}}>
+            <div key="e" data-grid={{x: 8, y: 3, w: 3, h: 11, static: true}}>
             <div>
                 <Bar data={barData} ref={bar} options={barOptions} />
             </div>
             </div>
-        
+
         </GridLayout>
         
-        
+        </div>
     );
 }
 
