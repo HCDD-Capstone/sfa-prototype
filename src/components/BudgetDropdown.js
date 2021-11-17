@@ -11,7 +11,7 @@ const BudgetDropdown = (props) => {
     return (
         <div className="menu">
         <Dropdown autoClose="outside">
-            <Dropdown.Toggle variant="primary">
+            <Dropdown.Toggle class="dropmenu" variant="primary">
                 {capitalizeFirstLetter(Object.keys(props.category)[0])}
             </Dropdown.Toggle>
             <Dropdown.Menu>

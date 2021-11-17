@@ -192,8 +192,8 @@ function Budget() {
   return (
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
       <div key="a" data-grid={{x: 5, y: 0, w: 4, h: 0, static: true}}>
-      <div>
-      <h2>Budget</h2>
+      <div className ="title">
+      <h1>Monthly Budget</h1>
       </div>
       </div>
       <div key="b" data-grid={{x: 2, y: 2.5, w: 4, h: 3, static: true}}>
