@@ -118,7 +118,6 @@ function Loan() {
     setAmountPaid(parseFloat(amountPaid) + parseFloat(payment));
     return parseFloat(calc.toFixed(2));
   }
-
   return (
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
       <div key="e" data-grid={{x: 1, y: 4, w: 4, h: 2, static: true}}>
