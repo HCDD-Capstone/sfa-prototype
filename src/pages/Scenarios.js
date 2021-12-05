@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { evaluate } from 'mathjs';
 import { Bar } from 'react-chartjs-2';
@@ -9,9 +8,8 @@ import "react-resizable/css/styles.css"
 import GridLayout from 'react-grid-layout'
 
 
-function Scenarios() {
-    const location = useLocation();
-    const { type } = location.state;
+function Scenarios(props) {
+    var type = props.type;
     const [monthlyPayment, setMonthlyPayment] = useState(0);
     const [lumpSum, setLumpSum] = useState(0);
     const [months, setMonths] = useState(0);

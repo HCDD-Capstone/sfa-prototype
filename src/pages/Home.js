@@ -22,9 +22,27 @@ const data = {
 const options = {
   scales: {
     y: {
-      beginAtZero: true
+      beginAtZero: true,
+      title: {
+        display: true,
+        align: "center",
+        text: 'Networth'
+      },
+      ticks: {
+        // Include a dollar sign in the ticks
+        callback: function(value, index, values) {
+            return '$' + value;
+        }
+      } 
+    },
+    x: {
+      title: {
+        display: true,
+        align: 'center',
+        text: 'Year'
+      }
     }
-  }
+  },
 };
 
 function Home() {
