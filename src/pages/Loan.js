@@ -217,10 +217,10 @@ function Loan() {
       </div>
       <div key="x" data-grid={{x: 1, y: 16, w: 12, h: 5, static: true}}>
         <DropdownButton variant="primary" id="dropdown-basic-button" title="Choose a scenario" onSelect={(event) => {setScenario(event)}}>
-          <Dropdown.Item eventKey="each-month">What if I pay a certain amount each month?</Dropdown.Item>
-          <Dropdown.Item eventKey="lump-sum">What if I pay a lump sum amount right now?</Dropdown.Item>
-          <Dropdown.Item eventKey="by-time">What if I want to pay off a loan in a certain amount of time?</Dropdown.Item>
-          <Dropdown.Item eventKey="less-than">What if I need to pay off less than normal this month?</Dropdown.Item>
+          <Dropdown.Item className='scenario-item' eventKey="each-month">What if I pay a certain amount each month?</Dropdown.Item>
+          <Dropdown.Item className='scenario-item' eventKey="lump-sum">What if I pay a lump sum amount right now?</Dropdown.Item>
+          <Dropdown.Item className='scenario-item' eventKey="by-time">What if I want to pay off a loan in a certain amount of time?</Dropdown.Item>
+          <Dropdown.Item className='scenario-item' eventKey="less-than">What if I need to pay off less than normal this month?</Dropdown.Item>
         </DropdownButton>
         <Scenarios type={scenario} />
       </div>

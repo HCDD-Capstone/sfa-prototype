@@ -33,10 +33,10 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="topnav">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/budget">Budget</Nav.Link>
-              <Nav.Link href="/transactions">Transactions</Nav.Link>
-              <Nav.Link href="/loan">Loan</Nav.Link>
+              <Nav.Link><Link className="link" to="/">Home</Link></Nav.Link>
+              <Nav.Link><Link className="link" to="/budget">Budget</Link></Nav.Link>
+              <Nav.Link><Link className="link" to="/transactions">Transactions</Link></Nav.Link>
+              <Nav.Link><Link className="link" to="/loan">Loan</Link></Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
