@@ -269,7 +269,7 @@ function Scenarios(props) {
             </div>
             <div key="d" data-grid={{x: 1, y: 4, w: 2, h: 1, static: true}}>
             <div>
-                <button onClick={calculateScenario}>Calculate</button>
+                <button className='sfa-button' onClick={calculateScenario}>Calculate</button>
             </div>
             </div>
             <div key="e" data-grid={{x: 7, y: 3, w: 4, h: 11, static: true}}>

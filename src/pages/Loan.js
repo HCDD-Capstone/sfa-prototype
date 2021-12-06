@@ -209,7 +209,7 @@ function Loan() {
             Monthly Payment: $
             <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
           </label>
-          <button onClick={calculateLoanPayments}>Simulate</button>
+          <button className='sfa-button' onClick={calculateLoanPayments}>Simulate</button>
         </div>
       </div>
       <div key="z" data-grid={{x: 7, y: 3, w: 4, h: 5, static: true}}>
