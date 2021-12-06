@@ -10,7 +10,6 @@ import Home from './pages/Home.js';
 import Budget from './pages/Budget.js';
 import Transactions from './pages/Transactions.js';
 import Loan from './pages/Loan.js';
-import WhatIf from './pages/WhatIf';
 import Scenarios from './pages/Scenarios';
 import { Container, Nav, Navbar, NavbarBrand, NavDropdown, NavItem } from 'react-bootstrap';
 import logo from "./logo/sfalogo.png";
@@ -34,11 +33,10 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="topnav">
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/budget">Budget</Nav.Link>
-              <Nav.Link href="/transactions">Transactions</Nav.Link>
-              <Nav.Link href="/loan">Loan</Nav.Link>
-              <Nav.Link href="/whatif">What If</Nav.Link>
+              <Nav.Link><Link className="link" to="/">Home</Link></Nav.Link>
+              <Nav.Link><Link className="link" to="/budget">Budget</Link></Nav.Link>
+              <Nav.Link><Link className="link" to="/transactions">Transactions</Link></Nav.Link>
+              <Nav.Link><Link className="link" to="/loan">Loan</Link></Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
@@ -47,9 +45,6 @@ function App() {
         <Switch>
           <Route path="/budget">
             <Budget />
-          </Route>
-          <Route path="/whatif">
-            <WhatIf />
           </Route>
           <Route path="/scenarios">
             <Scenarios />
