@@ -6,6 +6,10 @@ import '../styles/Scenarios.css';
 import "react-grid-layout/css/styles.css"
 import "react-resizable/css/styles.css"
 import GridLayout from 'react-grid-layout'
+import { BiTrendingUp } from "react-icons/bi";
+import { BiTrendingDown } from "react-icons/bi";
+import { BiMoney } from "react-icons/bi";
+import { BiCheckCircle } from "react-icons/bi";
 
 
 function Scenarios(props) {
@@ -226,17 +230,17 @@ function Scenarios(props) {
 
     const renderLessPayments = () => {
         if (lessPayments < 0) {
-            return <div class="outputData">You will make {Math.abs(lessPayments)} more payments than current plan.</div>
+            return <div class="outputData"><BiTrendingUp /> You will make <b>{Math.abs(lessPayments)}</b> more payments than current plan.</div>
         } else {
-            return <div class="outputData">You will make {lessPayments} fewer payments than current plan.</div>
+            return <div class="outputData"><BiTrendingDown /> You will make <b>{lessPayments}</b> fewer payments than current plan.</div>
         }
     }
 
     const renderSavings = () => {
         if (savings < 0) {
-            return <div class="outputData">You will pay ${Math.abs(savings).toFixed(2)} extra in interest.</div>
+            return <div class="outputData"><BiMoney /> You will pay <b>${Math.abs(savings).toFixed(2)}</b> extra in interest.</div>
         } else {
-            return <div class="outputData">You will save ${savings.toFixed(2)} in interest.</div>
+            return <div class="outputData"><BiMoney /> You will save <b>${savings.toFixed(2)}</b> in interest.</div>
         }
     }
 
@@ -257,13 +261,13 @@ function Scenarios(props) {
             <div key="c" data-grid={{x: 1, y: 6, w: 5, h: 3, static: true}}>
             <div>
                 <div>
-                    <div>icon here</div>{renderLessPayments()}
+                    <div></div>{renderLessPayments()}
                 </div>
                 <div>
-                    <div>icon here</div><div class="outputData">You will complete paying off your loan in {monthsLeft} months.</div>
+                    <div></div><div class="outputData"> <BiCheckCircle /> You will complete paying off your loan in <b>{monthsLeft}</b> months.</div>
                 </div>
                 <div>
-                    <div>icon here</div>{renderSavings()}
+                    <div></div>{renderSavings()}
                 </div>
             </div>
             </div>
