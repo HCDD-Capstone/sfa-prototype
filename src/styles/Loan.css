@@ -1,7 +1,6 @@
 .balance {
 font-size: x-large;
 line-height: 15px;
-border: 2px solid #293041;
 font-weight: bolder;
 color: #293041;
 }
@@ -11,26 +10,22 @@ color: #293041;
   flex-direction: row;
   align-items: flex-start;
   justify-content:space-around;
-  border: 2px solid #293041;
   color:#293041;
 }
 
 .card1 {
-  border: 2px solid #293041;
   text-align: center;
 }
 
 .card2 {
-  border: 2px solid #293041;
   text-align: center;
-  
 }
  
 .card3 {
   display:flex;
   flex-direction:row;
-  align-items: flex-start;
-  border: 2px solid #293041
+  justify-content:stretch;
+  align-items:center;
 }
 
 .graph {
@@ -43,6 +38,33 @@ color: #293041;
   width: 100px;
 }
 
+.balanceDes {
+  border: 2px solid black;
+  background-color: blue;
+  color: white;
+}
+
+.interestDes {
+  border: 2px solid black;
+  background-color: red;
+  color: white;
+}
+
+.principleDes {
+  border: 2px solid black;
+  background-color:lime;
+  color: white;
+}
+
 .scenario-item {
   width: 450px;
+}
+
+.scenario-button {
+  margin-left: 120px;
+}
+
+
+.bottom-title {
+  margin-left: 100px;
 }
