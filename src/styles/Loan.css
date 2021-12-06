@@ -9,7 +9,7 @@ color: #293041;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  justify-content:space-around;
+  justify-content: space-between;
   color:#293041;
 }
 
@@ -38,22 +38,37 @@ color: #293041;
   width: 100px;
 }
 
+.legend {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .balanceDes {
-  border: 2px solid black;
-  background-color: blue;
+  background-color: rgba(54, 162, 235, 1);
   color: white;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  margin: 5px;
 }
 
 .interestDes {
-  border: 2px solid black;
-  background-color: red;
+  background-color: rgba(255, 99, 132, 1);
   color: white;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  margin: 5px;
 }
 
 .principleDes {
-  border: 2px solid black;
-  background-color:lime;
+  background-color:rgba(75, 192, 192, 1);
   color: white;
+  width: 10px;
+  height: 10px;
+  display: flex;
+  margin: 5px;
 }
 
 .scenario-item {
@@ -64,7 +79,14 @@ color: #293041;
   margin-left: 120px;
 }
 
-
 .bottom-title {
   margin-left: 100px;
+}
+
+.top-space {
+  margin-top: 10px;
+}
+
+.left-space {
+  margin-left: 10px;
 }

@@ -18,22 +18,22 @@ const data = {
       label: 'Balance',
       fill: false,
       data: [],
-      backgroundColor: 'rgb(0, 0, 255)',
-      borderColor: 'rgba(0, 0, 255)',
+      backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      borderColor: 'rgba(54, 162, 235, 1)',
     },
     {
       label: 'Interest',
       fill: true,
       data: [],
-      backgroundColor: 'rgb(255, 0, 0)',
-      borderColor: 'rgba(255, 0, 0)',
+      backgroundColor: 'rgba(255, 99, 132, 0.6)',
+      borderColor: 'rgba(255, 99, 132, 1)',
     },
     {
       label: 'Principal',
       data: [],
       fill: true,
-      backgroundColor: 'rgb(0, 255, 0)',
-      borderColor: 'rgba(0, 255, 0)',
+      backgroundColor: 'rgba(75, 192, 192, 0.6)',
+      borderColor: 'rgba(75, 192, 192, 1)',
     },
   ],
 };
@@ -160,36 +160,39 @@ function Loan() {
         <h1>${balance.toFixed(2)}</h1>
       </div>
       </div>
-      <div key="p" data-grid={{x: 7.3, y: 7, w: 3.2, h: 1, static: true}}>
-        <div className ="balanceDes">
-          Balance - Amount of money currently owed
+      <div key="p" data-grid={{x: 7.7, y: 7.4, w: 3.2, h: 1, static: true}}>
+        <div className="legend">
+          <div className="balanceDes"></div>
+          Balance: Amount of money currently owed
         </div>
       </div>
-      <div key="y" data-grid={{x: 7.3, y: 8, w: 3.2, h: 1, static: true}}>
-        <div className ="interestDes">
-          Interest - Cost of borrowing money
+      <div key="y" data-grid={{x: 7.7, y: 8.4, w: 3.2, h: 1, static: true}}>
+        <div className="legend">
+          <div className ="interestDes"></div>
+          Interest: Cost of borrowing money
         </div>
       </div>
-      <div key="o" data-grid={{x: 7.3, y: 9, w: 3.2, h: 1, static: true}}>
-        <div className ="principleDes">
-          Principle - (total amount paid - amount paid in interest)
+      <div key="o" data-grid={{x: 7.7, y: 9.4, w: 3.2, h: 1, static: true}}>
+        <div className='legend'>
+          <div className ="principleDes"></div>
+          Principle: (total amount paid - amount paid in interest)
         </div>
       </div>
       <div key="d" data-grid={{x: 1, y: 4, w: 5, h: 2, static: true}}>
-      <div className="loan-info">
-        <div>
-          <h4>Total Loans</h4>
-          <div>1</div>
+        <div className="loan-info">
+          <div>
+            <h3>Total Loans</h3>
+            <div>1</div>
+          </div>
+          <div>
+            <h3>Remaining Term</h3>
+            <div>{remainingTerm} months</div>
+          </div>
+          <div>
+            <h3>Current APR</h3>
+            <div>{interestRate}%</div>
+          </div>
         </div>
-        <div>
-          <h3>Remaining Term</h3>
-          <div>{remainingTerm} months</div>
-        </div>
-        <div>
-          <h3>Current APR</h3>
-          <div>{interestRate}%</div>
-        </div>
-      </div>
       </div>
       <div key="b" data-grid={{x: 1, y: 6, w: 2, h: 2, static: true}}>
       <div className="card1">
@@ -218,13 +221,13 @@ function Loan() {
           </LoanCard>
         </div>
       </div>
-      <div key="a" data-grid={{x: 1, y: 9.5, w: 2, h: 1, static: true}}>
+      <div key="a" data-grid={{x: 1, y: 9.5, w: 3, h: 1, static: true}}>
         <div className="card3">
           <label>
             Monthly Payment: $
             <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
           </label>
-          <button className='sfa-button' onClick={calculateLoanPayments}>Simulate</button>
+          <button className={'sfa-button left-space'} onClick={calculateLoanPayments}>Simulate</button>
         </div>
       </div>
       <div key="z" data-grid={{x: 7, y: 1, w: 4, h: 1, static: true}}>
