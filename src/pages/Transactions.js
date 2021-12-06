@@ -242,23 +242,25 @@ function Transactions() {
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
         <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1, static: true}}><h1>Transactions</h1></div>
         <div key="b" data-grid={{x: 0, y: 1, w: 12, h: 2, static: true}}>
-          <div className="dates">
-            <div className="start-date">
-              Start Date:
-              <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-            </div>
-            <div className="end-date">
-              End Date:
-              <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-            </div>
-          </div>
+          
         </div>
         <div key="detail-grid" data-grid={{x: 0, y: 4, w: 3, h: 15}}>
+          <h3>Transaction Detail</h3>
           <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
         </div>
         <div key="d" className="bar-grid" data-grid={{x: 3, y: 4, w: 6, h: 15}}>
           <div className="bar">
             <h3 className="graph-title">Monthly Spending</h3>
+            <div className="dates">
+              <div className="start-date">
+                Start Date:
+                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+              </div>
+              <div className="end-date">
+                End Date:
+                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+              </div>
+            </div>
             <Bar data={barData} ref={bar} options={barOptions} />
           </div>
         </div>
