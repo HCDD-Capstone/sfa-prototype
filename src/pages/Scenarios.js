@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { evaluate } from 'mathjs';
 import { Bar } from 'react-chartjs-2';
@@ -13,9 +12,8 @@ import { BiMoney } from "react-icons/bi";
 import { BiCheckCircle } from "react-icons/bi";
 
 
-function Scenarios() {
-    const location = useLocation();
-    const { type } = location.state;
+function Scenarios(props) {
+    var type = props.type;
     const [monthlyPayment, setMonthlyPayment] = useState(0);
     const [lumpSum, setLumpSum] = useState(0);
     const [months, setMonths] = useState(0);

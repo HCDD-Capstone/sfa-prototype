@@ -1,31 +1,36 @@
 .balance {
 font-size: x-large;
 line-height: 15px;
-border: 2px solid black;
+border: 2px solid #293041;
 font-weight: bolder;
+color: #293041;
 }
 
 .loan-info {
-    display: flex;
+  display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content:space-around;
-  border: 2px solid black;
+  border: 2px solid #293041;
+  color:#293041;
 }
 
 .card1 {
-  border: 2px solid black;
+  border: 2px solid #293041;
+  text-align: center;
 }
 
 .card2 {
-  border: 2px solid black;
+  border: 2px solid #293041;
+  text-align: center;
+  
 }
-
+ 
 .card3 {
   display:flex;
   flex-direction:row;
   align-items: flex-start;
-  border: 2px solid black;
+  border: 2px solid #293041
 }
 
 .graph {
@@ -33,7 +38,11 @@ font-weight: bolder;
   flex-direction: row;
   align-items: flex-start;
   justify-content:space-around;
-  border: 2px solid black;
+  border: 2px solid #293041;
   height: 500px;
   width: 100px;
+}
+
+.scenario-item {
+  width: 450px;
 }

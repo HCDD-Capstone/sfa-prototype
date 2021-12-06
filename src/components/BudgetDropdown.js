@@ -9,18 +9,16 @@ const BudgetDropdown = (props) => {
       }
 
     return (
-        <div className="menu">
         <Dropdown autoClose="outside">
             <Dropdown.Toggle class="dropmenu" variant="primary">
                 {capitalizeFirstLetter(Object.keys(props.category)[0])}
             </Dropdown.Toggle>
             <Dropdown.Menu>
                 {Object.keys(props.subcategories).map((subcategory, i) => { 
-                    return <Dropdown.Item key={subcategory}><label>{capitalizeFirstLetter(subcategory)}: $<input name={subcategory} value={props.category[Object.keys(props.category)[0]][subcategory]} onChange={(e) => props.setters[i](e.target.value)}></input></label></Dropdown.Item>
+                    return <Dropdown.Item key={subcategory}><label>{capitalizeFirstLetter(subcategory)}: <div>$<input className='dropinput' name={subcategory} value={props.category[Object.keys(props.category)[0]][subcategory]} onChange={(e) => props.setters[i](e.target.value)}></input></div></label></Dropdown.Item>
                 })}
             </Dropdown.Menu>
         </Dropdown>
-        </div>
     )   
 }
 

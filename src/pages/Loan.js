@@ -1,11 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LoanCard from '../components/LoanCard';
+import Scenarios  from './Scenarios.js';
 import axios from 'axios';
 import '../styles/Loan.css';
 import { Line } from 'react-chartjs-2';
+import { Dropdown } from 'react-bootstrap';
+import DropdownButton from 'react-bootstrap/DropdownButton';
 import "react-grid-layout/css/styles.css"
 import "react-resizable/css/styles.css"
 import GridLayout from 'react-grid-layout'
+import { evaluate } from 'mathjs';
 
 const data = {
   labels: [],
@@ -37,7 +41,31 @@ const data = {
 const options = {
   scales: {
     y: {
-      beginAtZero: true
+      beginAtZero: true,
+      title: {
+        display: true,
+        align: "center",
+        text: 'Loan Amount'
+      },
+      ticks: {
+        // Include a dollar sign in the ticks
+        callback: function(value, index, values) {
+            return '$' + value;
+        }
+      } 
+    },
+    x: {
+      title: {
+        display: true,
+        align: 'center',
+        text: 'Months'
+      }
+    }
+  },
+  plugins: {
+    title: {
+      display: true,
+      text: "Loan Payment over Time"
     }
   }
 };
@@ -57,6 +85,12 @@ function Loan() {
   const [interestData, setInterestData] = useState([]);
   const [balanceData, setBalanceData] = useState([]);
   const [principalData, setPrincipalData] = useState([]);
+  const [defaultLoanPayment, setDefaultLoanPayment] = useState(0);
+  const [scenario, setScenario] = useState('each-month');
+  // v = present value, p = payment
+  const remainingBal = "(v * (1 + r)^n) - (p * (((1 + r)^n) - 1) / r)";
+  // p = principal
+  const defaultPayment = "(p * (r * (1 + r)^n)) / (((1 + r)^n) - 1)";
 
   useEffect(() => {
     axios.get(`/loans`)
@@ -66,64 +100,63 @@ function Loan() {
         setRemainingTerm(loan.remainingTerm);
         setInterestRate(loan.interestRate);
         setLoanTitle(loan.title);
+        let monthlyRate = loan.interestRate / 12 / 100;
+        let defPayment = evaluate(defaultPayment, {p: loan.balance, r: monthlyRate, n: loan.remainingTerm});
+        setDefaultLoanPayment(defPayment.toFixed(2));
       })
   }, []); 
 
   useEffect(() => {
     try {
-      line.current.data.labels.push(count);
+      line.current.data.labels = count;
       setTimeout(() => {
         line.current.data.datasets[1].data = interestData;
         line.current.data.datasets[0].data = balanceData;
         line.current.data.datasets[2].data = principalData;
         line.current.update();
       }, 100)
-      setCount(count + 1);
     } catch (e) {
       console.log(e);
     }
   }, [interestData, balanceData]);
 
-  const calculateDefaultPayment = () => {
+  const calculateLoanPayments = () => {
+    let localBal = balance;
+    let totalInterest = 0;
+    let totalPrincipal = 0;
+    let totalInterestData = [0];
+    let totalBalanceData = [localBal];
+    let totalPrincipalData = [0];
+    let localCount = [0];
+    let currentCount = 0;
     let monthlyRate = interestRate / 12 / 100;
-    let calc = balance * (monthlyRate * Math.pow((1 + monthlyRate), remainingTerm)) / (Math.pow((1 + monthlyRate), remainingTerm) - 1);
-    return parseFloat(calc.toFixed(2));
+    while (localBal > 0) {
+      localBal = evaluate(remainingBal, {v: localBal, r: monthlyRate, n: 1, p: payment});
+      totalBalanceData.push(localBal);
+      totalInterest += monthlyRate * localBal;
+      totalInterestData.push(totalInterest);
+      totalPrincipal += payment - (monthlyRate * localBal);
+      totalPrincipalData.push(totalPrincipal);
+      currentCount++;
+      localCount.push(currentCount);
+    }
+    setRemainingTerm(remainingTerm - currentCount);
+    setTotalInterest(totalInterest);
+    setAmountPaid(totalInterest + totalPrincipal);
+    setCount(localCount);
+    setInterestData(totalInterestData);
+    setBalanceData(totalBalanceData);
+    setPrincipalData(totalPrincipalData);
   }
 
-  const simulatePayment = () => {
-    let monthlyRate = interestRate / 12 / 100;
-    calculateOnePayment();
-    setInterestData(prevValues => {
-      const newValues = [...prevValues, (totalInterest + (monthlyRate * balance)).toFixed(2)];
-      return newValues;
-    });
-    setBalanceData(prevValuess => {
-      const newValues = [...prevValuess, balance.toFixed(2)];
-      return newValues;
-    });
-    setPrincipalData(prevValuess => {
-      const newValues = [...prevValuess, (totalPrincipal + (payment - (monthlyRate * balance))).toFixed(2)];
-      return newValues;
-    });
+  const handleSelect=(eventKey, e)=>{
+    console.log(eventKey + " " + e);
   }
-
-  const calculateOnePayment = () => {
-    let monthlyRate = interestRate / 12 / 100;
-    setInterestPayment(monthlyRate * balance);
-    setTotalInterest(totalInterest + (monthlyRate * balance));
-    setTotalPrincipal(totalPrincipal + (payment - (monthlyRate * balance)));
-    let calc = (balance * Math.pow((1 + monthlyRate), 1)) - (payment * ((Math.pow((1 + monthlyRate), 1) - 1) / (monthlyRate)));
-    setBalance(calc);
-    setRemainingTerm(remainingTerm - 1);
-    setAmountPaid(parseFloat(amountPaid) + parseFloat(payment));
-    return parseFloat(calc.toFixed(2));
-  }
-
   return (
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
       <div key="e" data-grid={{x: 1, y: 4, w: 4, h: 2, static: true}}>
       <div className="balance">
-        Loan Balance
+        Loan Total
         <h1>${balance.toFixed(2)}</h1>
       </div>
       </div>
@@ -146,7 +179,7 @@ function Loan() {
       <div key="b" data-grid={{x: 1, y: 9, w: 2, h: 2, static: true}}>
       <div className="card1">
         <LoanCard 
-          value={'$' + calculateDefaultPayment()} 
+          value={'$' + defaultLoanPayment} 
           title="Your Minimum Monthly Payment" 
           description="You need to at least pay this much each month.">
         </LoanCard>
@@ -176,11 +209,20 @@ function Loan() {
             Monthly Payment: $
             <input value={payment} onInput={(payment) => setPayment(payment.target.value)} />
           </label>
-          <button onClick={simulatePayment}>Simulate 1 Month</button>
+          <button onClick={calculateLoanPayments}>Simulate</button>
         </div>
       </div>
       <div key="z" data-grid={{x: 7, y: 3, w: 4, h: 5, static: true}}>
         <Line ref={line} data={data} options={options} />
+      </div>
+      <div key="x" data-grid={{x: 1, y: 16, w: 12, h: 5, static: true}}>
+        <DropdownButton variant="primary" id="dropdown-basic-button" title="Choose a scenario" onSelect={(event) => {setScenario(event)}}>
+          <Dropdown.Item className='scenario-item' eventKey="each-month">What if I pay a certain amount each month?</Dropdown.Item>
+          <Dropdown.Item className='scenario-item' eventKey="lump-sum">What if I pay a lump sum amount right now?</Dropdown.Item>
+          <Dropdown.Item className='scenario-item' eventKey="by-time">What if I want to pay off a loan in a certain amount of time?</Dropdown.Item>
+          <Dropdown.Item className='scenario-item' eventKey="less-than">What if I need to pay off less than normal this month?</Dropdown.Item>
+        </DropdownButton>
+        <Scenarios type={scenario} />
       </div>
     </GridLayout>
     

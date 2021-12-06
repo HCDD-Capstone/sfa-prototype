@@ -33,12 +33,29 @@ function Transactions() {
     },
     scales: {
       y: {
-          ticks: {
-              // Include a dollar sign in the ticks
-              callback: function(value, index, values) {
-                  return '$' + value;
-              }
-          }
+        title: {
+          display: true,
+          align: "center",
+          text: 'Total Spent'
+        },
+        ticks: {
+            // Include a dollar sign in the ticks
+            callback: function(value, index, values) {
+                return '$' + value;
+            }
+        }
+      },
+      x: {
+        title: {
+          display: true,
+          align: 'center',
+          text: 'Month'
+        }
+      }
+    },
+    plugins: {
+      legend: {
+        display: false
       }
     },
     layout: {
@@ -221,34 +238,9 @@ function Transactions() {
     } 
   }
 
-  return (
-    // <GridLayout className="transactions-wrapper">
-    //   <h2>Transactions</h2>
-      // <div className="dates">
-      //   <div className="start-date">
-      //     Start Date:
-      //     <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
-      //   </div>
-      //   <div className="end-date">
-      //     End Date:
-      //     <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
-      //   </div>
-      // </div>
-    //   <div className="main-content">
-    //     <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
-        // <div className="bar">
-        //   <h2 className="graph-title">Monthly Spending</h2>
-        //   <Bar data={barData} ref={bar} options={barOptions} />
-        // </div>
-        // <div className="doughnut">
-        //   <h2 className="doughnut-title">Breakdown for {doughnutMonth}</h2>
-        //   <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
-        // </div>
-    //   </div>
-    //   <Link to='/loan'>Loan</Link>
-    // </GridLayout>   
+  return (  
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
-        <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1, static: true}}><h3>Transactions</h3></div>
+        <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1, static: true}}><h1>Transactions</h1></div>
         <div key="b" data-grid={{x: 0, y: 1, w: 12, h: 2, static: true}}>
           <div className="dates">
             <div className="start-date">
