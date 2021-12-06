@@ -78,7 +78,7 @@ function Transactions() {
         doughnut.current.data.datasets[0].data = totals;
         doughnut.current.update();
         console.log(bar.current.data);
-        //setDoughnutMonth(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(newDate));
+        setDoughnutMonth(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(newDate));
       } catch(e) {
         console.error(e);
       }
