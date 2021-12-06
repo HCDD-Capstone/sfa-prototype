@@ -127,6 +127,21 @@ function Loan() {
         <h1>${balance.toFixed(2)}</h1>
       </div>
       </div>
+      <div key="x" data-grid={{x: 7.3, y: 10, w: 3.2, h: 1, static: true}}>
+        <div className ="balanceDes">
+          Balance - Amount of money currently owed
+        </div>
+      </div>
+      <div key="y" data-grid={{x: 7.3, y: 11, w: 3.2, h: 1, static: true}}>
+        <div className ="interestDes">
+          Interest - Cost of borrowing money
+        </div>
+      </div>
+      <div key="p" data-grid={{x: 7.3, y: 12, w: 3.2, h: 1, static: true}}>
+        <div className ="principleDes">
+          Principle - (total amount paid - amount paid in interest)
+        </div>
+      </div>
       <div key="d" data-grid={{x: 1, y: 6, w: 5, h: 3, static: true}}>
       <div className="loan-info">
         <div>

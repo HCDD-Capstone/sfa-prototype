@@ -116,7 +116,7 @@ function Scenarios() {
             return <div class="inputValue">Enter Desired Months to Complete: <input value={months} onInput={(months) => setMonths(months.target.value)}></input> months</div>
         }
         if (type === "less-than") {
-            return <div class="inputValue">Enter Amount Less Than Current Plan: $<input value={payLess} onInput={(payLess) => setPayLess(payLess.target.value)}></input></div>
+            return <div class="inputValue">Enter Desired Monthly Payment: $<input value={payLess} onInput={(payLess) => setPayLess(payLess.target.value)}></input></div>
         }
     }
 
