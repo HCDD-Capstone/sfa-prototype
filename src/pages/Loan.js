@@ -154,13 +154,28 @@ function Loan() {
   }
   return (
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
-      <div key="e" data-grid={{x: 1, y: 4, w: 4, h: 2, static: true}}>
+      <div key="e" data-grid={{x: 1, y: 2, w: 4, h: 1, static: true}}>
       <div className="balance">
         Loan Total
         <h1>${balance.toFixed(2)}</h1>
       </div>
       </div>
-      <div key="d" data-grid={{x: 1, y: 6, w: 5, h: 3, static: true}}>
+      <div key="p" data-grid={{x: 7.3, y: 7, w: 3.2, h: 1, static: true}}>
+        <div className ="balanceDes">
+          Balance - Amount of money currently owed
+        </div>
+      </div>
+      <div key="y" data-grid={{x: 7.3, y: 8, w: 3.2, h: 1, static: true}}>
+        <div className ="interestDes">
+          Interest - Cost of borrowing money
+        </div>
+      </div>
+      <div key="o" data-grid={{x: 7.3, y: 9, w: 3.2, h: 1, static: true}}>
+        <div className ="principleDes">
+          Principle - (total amount paid - amount paid in interest)
+        </div>
+      </div>
+      <div key="d" data-grid={{x: 1, y: 4, w: 5, h: 2, static: true}}>
       <div className="loan-info">
         <div>
           <h4>Total Loans</h4>
@@ -176,7 +191,7 @@ function Loan() {
         </div>
       </div>
       </div>
-      <div key="b" data-grid={{x: 1, y: 9, w: 2, h: 2, static: true}}>
+      <div key="b" data-grid={{x: 1, y: 6, w: 2, h: 2, static: true}}>
       <div className="card1">
         <LoanCard 
           value={'$' + defaultLoanPayment} 
@@ -185,7 +200,7 @@ function Loan() {
         </LoanCard>
       </div>
       </div>
-      <div key="c" data-grid={{x: 3, y: 9, w: 2, h: 2, static: true}}>
+      <div key="c" data-grid={{x: 3, y: 6, w: 2, h: 2, static: true}}>
         <div className="card2">
           <LoanCard 
             value={'$' + amountPaid.toFixed(2)} 
@@ -194,7 +209,7 @@ function Loan() {
           </LoanCard>
         </div>
       </div>
-      <div key="f" data-grid={{x: 5, y: 9, w: 2, h: 2, static: true}}>
+      <div key="f" data-grid={{x: 5, y: 6, w: 2, h: 2, static: true}}>
         <div className="card4">
           <LoanCard 
             value={'$' + totalInterest.toFixed(2)} 
@@ -203,7 +218,7 @@ function Loan() {
           </LoanCard>
         </div>
       </div>
-      <div key="a" data-grid={{x: 1, y: 13, w: 2, h: 2, static: true}}>
+      <div key="a" data-grid={{x: 1, y: 9.5, w: 2, h: 1, static: true}}>
         <div className="card3">
           <label>
             Monthly Payment: $
@@ -212,17 +227,22 @@ function Loan() {
           <button className='sfa-button' onClick={calculateLoanPayments}>Simulate</button>
         </div>
       </div>
-      <div key="z" data-grid={{x: 7, y: 3, w: 4, h: 5, static: true}}>
+      <div key="z" data-grid={{x: 7, y: 1, w: 4, h: 1, static: true}}>
         <Line ref={line} data={data} options={options} />
       </div>
-      <div key="x" data-grid={{x: 1, y: 16, w: 12, h: 5, static: true}}>
-        <DropdownButton variant="primary" id="dropdown-basic-button" title="Choose a scenario" onSelect={(event) => {setScenario(event)}}>
+      <div key="x" data-grid={{x: 1, y: 15, w: 12, h: 1, static: true}}>
+        <DropdownButton className= "scenario-button" variant="primary" id="dropdown-basic-button" title="Choose a scenario" onSelect={(event) => {setScenario(event)}}>
           <Dropdown.Item className='scenario-item' eventKey="each-month">What if I pay a certain amount each month?</Dropdown.Item>
           <Dropdown.Item className='scenario-item' eventKey="lump-sum">What if I pay a lump sum amount right now?</Dropdown.Item>
           <Dropdown.Item className='scenario-item' eventKey="by-time">What if I want to pay off a loan in a certain amount of time?</Dropdown.Item>
           <Dropdown.Item className='scenario-item' eventKey="less-than">What if I need to pay off less than normal this month?</Dropdown.Item>
         </DropdownButton>
         <Scenarios type={scenario} />
+      </div>
+      <div key="t" data-grid={{x: 1, y: 13, w: 12, h: 1, static: true}}>
+      <h2 className ="bottom-title">
+          Try our "What-If" tool below
+        </h2>
       </div>
     </GridLayout>
     
