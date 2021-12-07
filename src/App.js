@@ -11,7 +11,7 @@ import Budget from './pages/Budget.js';
 import Transactions from './pages/Transactions.js';
 import Loan from './pages/Loan.js';
 import Scenarios from './pages/Scenarios';
-import { Container, Nav, Navbar, NavbarBrand, NavDropdown, NavItem } from 'react-bootstrap';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 import logo from "./logo/sfalogo.png";
 
 function App() {

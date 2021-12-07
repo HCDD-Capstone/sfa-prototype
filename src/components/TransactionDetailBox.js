@@ -3,8 +3,7 @@ import TransactionDetail from './TransactionDetail';
 import '../styles/TransactionDetailBox.css';
 
 const TransactionDetailBox = (props) => {
-    
-    console.log(props);
+
     return (
         <div id="details-wrapper">
             {props.transactions.map(function(item) {

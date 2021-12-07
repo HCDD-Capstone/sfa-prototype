@@ -53,6 +53,10 @@ html, body {
     height: 100%;
 }
 
+.doughnut-title {
+    text-align: center;
+}
+
 h1 {
     font-weight: bold;
 }
