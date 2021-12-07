@@ -1,16 +1,16 @@
-h2{
+h2 {
     font-weight: bold;
     justify-content: center;
     color: #293041;
 }
 
-.inputValue{
-    font-size: 16pt;
-    color: #293041;
+.heading {
+    text-align: center;
 }
 
-.body {
-    justify-content: space-around;
+.inputValue {
+    font-size: 16pt;
+    color: #293041;
 }
 
 .outputData {

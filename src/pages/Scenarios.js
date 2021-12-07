@@ -18,7 +18,6 @@ function Scenarios(props) {
     const [lumpSum, setLumpSum] = useState(0);
     const [months, setMonths] = useState(0);
     const [payLess, setPayLess] = useState(0);
-    const [interestRate, setInterestRate] = useState(0);
     const [totalTerm, setTotalTerm] = useState(0);
     const [balance, setBalance] = useState(0);
     const [monthlyRate, setMonthlyRate] = useState(0);
@@ -35,17 +34,9 @@ function Scenarios(props) {
     const barOptions = {
         maintainAspectRatio: true,
         scales: {
-            yAxes: [
-            {
-                ticks: {
-                    beginAtZero: true,
-                },
-            },
-            ],
-        },
-        scales: {
           y: {
               ticks: {
+                  beginAtZero: true,
                   // Include a dollar sign in the ticks
                   callback: function(value, index, values) {
                       return '$' + value;
@@ -85,7 +76,6 @@ function Scenarios(props) {
     useEffect(() => {
         axios.get(`/loans`)
         .then(res => {
-            setInterestRate(res.data[0].interestRate);
             setTotalTerm(res.data[0].totalTerm);
             setBalance(res.data[0].balance);
             setMonthlyRate(res.data[0].interestRate / 12 / 100);
@@ -97,13 +87,13 @@ function Scenarios(props) {
             return <h2>Monthly Payment</h2>
         }
         if (type === "lump-sum") {
-            return <h2>Lump Sum</h2>
+            return <h2>Pay a Lump Sum</h2>
         }
         if (type === "by-time") {
-            return <h2>Set Duration</h2>
+            return <h2>Set Duration of Payments</h2>
         }
         if (type === "less-than") {
-            return <h2>Pay Less</h2>
+            return <h2>Pay Less This Month</h2>
         }
     }
 
@@ -162,7 +152,6 @@ function Scenarios(props) {
 
     const calculateLumpSumPayment = () => {
         let defaultLoanPayment = evaluate(defaultPayment, {p: balance, r: monthlyRate, n: totalTerm});
-        console.log(defaultLoanPayment);
         let totalMonths = 0;
         let loanBalance = balance - lumpSum;
         while (loanBalance > 0) {
@@ -245,46 +234,41 @@ function Scenarios(props) {
     }
 
     return (
-        <div class="body">
-        <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
-        
-            <div key="a" data-grid={{x: 5, y: 0, w: 4, h: 3, static: true}}>
-            <div className="heading">
-                {renderHeader()}
-            </div>
+        <GridLayout className="layout" cols={12} rowHeight={30} width={1500}> 
+            <div key="a" data-grid={{x: 4, y: 0, w: 4, h: 3, static: true}}>
+                <div className="heading">
+                    {renderHeader()}
+                </div>
             </div>
             <div key="b" data-grid={{x: 1, y: 3, w: 5, h: 1, static: true}}>
-            <div className="input">
-                {renderInput()}
-            </div>
+                <div className="input">
+                    {renderInput()}
+                </div>
             </div>
             <div key="c" data-grid={{x: 1, y: 6, w: 5, h: 3, static: true}}>
-            <div>
                 <div>
-                    <div></div>{renderLessPayments()}
+                    <div>
+                        <div></div>{renderLessPayments()}
+                    </div>
+                    <div>
+                        <div></div><div class="outputData"> <BiCheckCircle /> You will complete paying off your loan in <b>{monthsLeft}</b> months.</div>
+                    </div>
+                    <div>
+                        <div></div>{renderSavings()}
+                    </div>
                 </div>
-                <div>
-                    <div></div><div class="outputData"> <BiCheckCircle /> You will complete paying off your loan in <b>{monthsLeft}</b> months.</div>
-                </div>
-                <div>
-                    <div></div>{renderSavings()}
-                </div>
-            </div>
             </div>
             <div key="d" data-grid={{x: 1, y: 4, w: 2, h: 1, static: true}}>
-            <div>
-                <button className={'sfa-button top-space'} onClick={calculateScenario}>Calculate</button>
-            </div>
+                <div>
+                    <button className={'sfa-button top-space'} onClick={calculateScenario}>Calculate</button>
+                </div>
             </div>
             <div key="e" data-grid={{x: 7, y: 3, w: 4, h: 11, static: true}}>
-            <div>
-                <Bar data={barData} ref={bar} options={barOptions} />
+                <div>
+                    <Bar data={barData} ref={bar} options={barOptions} />
+                </div>
             </div>
-            </div>
-
         </GridLayout>
-        
-        </div>
     );
 }
 

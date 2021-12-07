@@ -72,14 +72,12 @@ const options = {
 
 function Loan() {
   const [balance, setBalance] = useState(0);
+  const [originalTerm, setOrigTerm] = useState(0);
   const [remainingTerm, setRemainingTerm] = useState(0)
   const [interestRate, setInterestRate] = useState(0);
-  const [interestPayment, setInterestPayment] = useState(0);
   const [totalInterest, setTotalInterest] = useState(0);
-  const [loanTitle, setLoanTitle] = useState('');
   const [payment, setPayment] = useState(0);
   const [amountPaid, setAmountPaid] = useState(0);
-  const [totalPrincipal, setTotalPrincipal] = useState(0);
   const line = useRef();
   const [count, setCount] = useState(1);
   const [interestData, setInterestData] = useState([]);
@@ -97,9 +95,9 @@ function Loan() {
       .then(res => {
         let loan = res.data[0];
         setBalance(loan.balance);
+        setOrigTerm(loan.remainingTerm);
         setRemainingTerm(loan.remainingTerm);
         setInterestRate(loan.interestRate);
-        setLoanTitle(loan.title);
         let monthlyRate = loan.interestRate / 12 / 100;
         let defPayment = evaluate(defaultPayment, {p: loan.balance, r: monthlyRate, n: loan.remainingTerm});
         setDefaultLoanPayment(defPayment.toFixed(2));
@@ -118,7 +116,7 @@ function Loan() {
     } catch (e) {
       console.log(e);
     }
-  }, [interestData, balanceData]);
+  }, [interestData, balanceData, count, principalData]);
 
   const calculateLoanPayments = () => {
     let localBal = balance;
@@ -140,7 +138,7 @@ function Loan() {
       currentCount++;
       localCount.push(currentCount);
     }
-    setRemainingTerm(remainingTerm - currentCount);
+    setRemainingTerm(originalTerm - currentCount);
     setTotalInterest(totalInterest);
     setAmountPaid(totalInterest + totalPrincipal);
     setCount(localCount);
@@ -149,9 +147,6 @@ function Loan() {
     setPrincipalData(totalPrincipalData);
   }
 
-  const handleSelect=(eventKey, e)=>{
-    console.log(eventKey + " " + e);
-  }
   return (
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
       <div key="e" data-grid={{x: 1, y: 2, w: 4, h: 1, static: true}}>
@@ -160,22 +155,22 @@ function Loan() {
         <h1>${balance.toFixed(2)}</h1>
       </div>
       </div>
-      <div key="p" data-grid={{x: 7.7, y: 7.4, w: 3.2, h: 1, static: true}}>
+      <div key="p" data-grid={{x: 7.7, y: 7.4, w: 3.3, h: 1, static: true}}>
         <div className="legend">
           <div className="balanceDes"></div>
           Balance: Amount of money currently owed
         </div>
       </div>
-      <div key="y" data-grid={{x: 7.7, y: 8.4, w: 3.2, h: 1, static: true}}>
+      <div key="y" data-grid={{x: 7.7, y: 8.4, w: 3.3, h: 1, static: true}}>
         <div className="legend">
           <div className ="interestDes"></div>
           Interest: Cost of borrowing money
         </div>
       </div>
-      <div key="o" data-grid={{x: 7.7, y: 9.4, w: 3.2, h: 1, static: true}}>
+      <div key="o" data-grid={{x: 7.7, y: 9.4, w: 3.3, h: 1, static: true}}>
         <div className='legend'>
           <div className ="principleDes"></div>
-          Principle: (total amount paid - amount paid in interest)
+          Principle: (Total Amount Paid - Amount Paid in Interest)
         </div>
       </div>
       <div key="d" data-grid={{x: 1, y: 4, w: 5, h: 2, static: true}}>
@@ -244,7 +239,7 @@ function Loan() {
       </div>
       <div key="t" data-grid={{x: 1, y: 13, w: 12, h: 1, static: true}}>
       <h2 className ="bottom-title">
-          Try our "What-If" tool below
+          "What-If" Calculator
         </h2>
       </div>
     </GridLayout>
