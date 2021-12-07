@@ -1,5 +1,5 @@
 # sfa-prototype
-Prototype repository for Student Financial Assistant
+Prototype repository for Student Financial Assistant @ https://sfa-prototype.herokuapp.com/
 
 # Install
 * Install a working version of Node and npm
