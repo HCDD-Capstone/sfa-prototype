@@ -149,31 +149,31 @@ function Loan() {
 
   return (
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
-      <div key="e" data-grid={{x: 1, y: 2, w: 4, h: 1, static: true}}>
+      <div key="e" data-grid={{x: 0.5, y: 2, w: 4, h: 1, static: true}}>
       <div className="balance">
         Loan Total
         <h1>${balance.toFixed(2)}</h1>
       </div>
       </div>
-      <div key="p" data-grid={{x: 7.7, y: 7.4, w: 3.3, h: 1, static: true}}>
+      <div key="p" data-grid={{x: 7.5, y: 7.4, w: 3.3, h: 1, static: true}}>
         <div className="legend">
           <div className="balanceDes"></div>
           Balance: Amount of money currently owed
         </div>
       </div>
-      <div key="y" data-grid={{x: 7.7, y: 8.4, w: 3.3, h: 1, static: true}}>
+      <div key="y" data-grid={{x: 7.5, y: 8.4, w: 3.3, h: 1, static: true}}>
         <div className="legend">
           <div className ="interestDes"></div>
           Interest: Cost of borrowing money
         </div>
       </div>
-      <div key="o" data-grid={{x: 7.7, y: 9.4, w: 3.3, h: 1, static: true}}>
+      <div key="o" data-grid={{x: 7.5, y: 9.4, w: 3.3, h: 1, static: true}}>
         <div className='legend'>
           <div className ="principleDes"></div>
           Principle: (Total Amount Paid - Amount Paid in Interest)
         </div>
       </div>
-      <div key="d" data-grid={{x: 1, y: 4, w: 5, h: 2, static: true}}>
+      <div key="d" data-grid={{x: 0.5, y: 4, w: 5, h: 2, static: true}}>
         <div className="loan-info">
           <div>
             <h3>Total Loans</h3>
@@ -189,7 +189,7 @@ function Loan() {
           </div>
         </div>
       </div>
-      <div key="b" data-grid={{x: 1, y: 6, w: 2, h: 2, static: true}}>
+      <div key="b" data-grid={{x: 0.5, y: 6, w: 2, h: 2, static: true}}>
       <div className="card1">
         <LoanCard 
           value={'$' + defaultLoanPayment} 
@@ -198,7 +198,7 @@ function Loan() {
         </LoanCard>
       </div>
       </div>
-      <div key="c" data-grid={{x: 3, y: 6, w: 2, h: 2, static: true}}>
+      <div key="c" data-grid={{x: 2.5, y: 6, w: 2, h: 2, static: true}}>
         <div className="card2">
           <LoanCard 
             value={'$' + amountPaid.toFixed(2)} 
@@ -207,7 +207,7 @@ function Loan() {
           </LoanCard>
         </div>
       </div>
-      <div key="f" data-grid={{x: 5, y: 6, w: 2, h: 2, static: true}}>
+      <div key="f" data-grid={{x: 4.5, y: 6, w: 2, h: 2, static: true}}>
         <div className="card4">
           <LoanCard 
             value={'$' + totalInterest.toFixed(2)} 
@@ -216,7 +216,7 @@ function Loan() {
           </LoanCard>
         </div>
       </div>
-      <div key="a" data-grid={{x: 1, y: 9.5, w: 3, h: 1, static: true}}>
+      <div key="a" data-grid={{x: 0.5, y: 9.5, w: 3, h: 1, static: true}}>
         <div className="card3">
           <label>
             Monthly Payment: $
@@ -225,12 +225,12 @@ function Loan() {
           <button className={'sfa-button left-space'} onClick={calculateLoanPayments}>Simulate</button>
         </div>
       </div>
-      <div key="z" data-grid={{x: 7, y: 1, w: 4, h: 6, static: true}}>
+      <div key="z" data-grid={{x: 6.6, y: -0.15, w: 4.75, h: 7, static: true}}>
         <div className= "line-graph">
-        <Line ref={line} data={data} options={options} />
+          <Line ref={line} data={data} options={options} />
         </div>
       </div>
-      <div key="x" data-grid={{x: 1, y: 15, w: 12, h: 1, static: true}}>
+      <div key="x" data-grid={{x: 0, y: 13.5, w: 11.5, h: 10, static: true}}>
         <DropdownButton className= "scenario-button" variant="primary" id="dropdown-basic-button" title="Choose a scenario" onSelect={(event) => {setScenario(event)}}>
           <Dropdown.Item className='scenario-item' eventKey="each-month">What if I pay a certain amount each month?</Dropdown.Item>
           <Dropdown.Item className='scenario-item' eventKey="lump-sum">What if I pay a lump sum amount right now?</Dropdown.Item>
@@ -239,12 +239,12 @@ function Loan() {
         </DropdownButton>
         <Scenarios type={scenario} />
       </div>
-      <div key="t" data-grid={{x: 1, y: 13, w: 12, h: 1, static: true}}>
-      <h2 className ="bottom-title">
+      <div key="t" data-grid={{x: 0.1, y: 12, w: 11, h: 1, static: true}}>
+        <h2 className ="bottom-title">
           "What-If" Calculator
         </h2>
       </div>
-      <div key="s" data-grid={{x: 1, y: -0.15, w: 3, h: 1, static: true}}>
+      <div key="s" data-grid={{x: 0.5, y: -0.15, w: 3, h: 1, static: true}}>
         <h1 className= "top-title">
           Loan
         </h1>
