@@ -1,3 +1,5 @@
+// File for generating fake, back-end data
+
 var companies = [
 "Walmart",
 "The Kroger Co.",
@@ -99,29 +101,6 @@ var companies = [
 "SUPERVALU",
 "Belk",
 "Petco Animal Supplies"]
-
-, 
-    "grocery store": 0,
-    "fast food": 0,
-    "bar": 0,
-    "payment": 0,
-    "renter's insurance": 0,
-    "TV Subscriptions": 0,
-    "Live Events": 0,
-    "Other": 0,
-    "Gas": 0,
-    "water": 0,
-    "Electricity": 0,
-    "insurance": 0,
-    "gas": 0,
-    "repairs": 0,
-    "mortgage": 0,
-    "Student Loans": 0,
-    "car": 0,
-    "Health Insurance": 0,
-    "Children's Needs": 0,
-    "Clothes": 0
-}
 
 function randomDate(start, end) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));

@@ -235,7 +235,7 @@ function Scenarios(props) {
 
     return (
         <GridLayout className="layout" cols={12} rowHeight={30} width={1500}> 
-            <div key="a" data-grid={{x: 4, y: 0, w: 4, h: 3, static: true}}>
+            <div key="a" data-grid={{x: 3.75, y: 0, w: 4, h: 3, static: true}}>
                 <div className="heading">
                     {renderHeader()}
                 </div>
@@ -263,7 +263,7 @@ function Scenarios(props) {
                     <button className={'sfa-button top-space'} onClick={calculateScenario}>Calculate</button>
                 </div>
             </div>
-            <div key="e" data-grid={{x: 7, y: 3, w: 4, h: 11, static: true}}>
+            <div key="e" data-grid={{x: 6.75, y: 3, w: 4, h: 11, static: true}}>
                 <div>
                     <Bar data={barData} ref={bar} options={barOptions} />
                 </div>
