@@ -90,3 +90,17 @@ color: #293041;
 .left-space {
   margin-left: 10px;
 }
+
+.top-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.line-graph {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-grow: 3;
+  justify-content: center;
+}

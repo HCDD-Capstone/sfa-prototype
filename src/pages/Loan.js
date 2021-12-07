@@ -225,8 +225,10 @@ function Loan() {
           <button className={'sfa-button left-space'} onClick={calculateLoanPayments}>Simulate</button>
         </div>
       </div>
-      <div key="z" data-grid={{x: 7, y: 1, w: 4, h: 1, static: true}}>
+      <div key="z" data-grid={{x: 7, y: 1, w: 4, h: 6, static: true}}>
+        <div className= "line-graph">
         <Line ref={line} data={data} options={options} />
+        </div>
       </div>
       <div key="x" data-grid={{x: 1, y: 15, w: 12, h: 1, static: true}}>
         <DropdownButton className= "scenario-button" variant="primary" id="dropdown-basic-button" title="Choose a scenario" onSelect={(event) => {setScenario(event)}}>
@@ -241,6 +243,11 @@ function Loan() {
       <h2 className ="bottom-title">
           "What-If" Calculator
         </h2>
+      </div>
+      <div key="s" data-grid={{x: 1, y: -0.15, w: 3, h: 1, static: true}}>
+        <h1 className= "top-title">
+          Loan
+        </h1>
       </div>
     </GridLayout>
     
