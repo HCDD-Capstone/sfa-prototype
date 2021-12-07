@@ -46,31 +46,31 @@ const options = {
 };
 
 function Home() {
-  const [totalCash, setTotalCash] = useState(10000);
-  const [totalLoan, setTotalLoan] = useState(4000);
+  const [totalCash] = useState(10000);
+  const [totalLoan] = useState(4000);
 
   return (
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>  
-    <div key="a" data-grid={{x: 1, y: 0, w: 4, h: 3, static: true}}>
+    <div key="a" data-grid={{x: 1, y: 0, w: 4, h: 2, static: true}}>
       <div className="hello">
-        <Welcome name="User"></Welcome>
+        <Welcome name="John Doe"></Welcome>
       </div>
-      </div>
-      <div key="b" data-grid={{x: 1, y: 3, w: 7, h: 11, static: true}}>
+    </div>
+    <div key="b" data-grid={{x: 1, y: 2, w: 7, h: 11, static: true}}>
       <div className="headings">
         <h1>$6000</h1>
         <h3>Total Net Worth</h3>
         <Line data={data} options={options} />
       </div>
-      </div>
-      <div key="c" data-grid={{x: 9, y: 7, w: 3, h: 11, static: true}}>
+    </div>
+    <div key="c" data-grid={{x: 8.5, y: 7, w: 3, h: 11, static: true}}>
       <div className="summary">
         <h2><b>Cash</b></h2>
-        <p>Total: ${totalCash}</p>
+        <h4>Total: ${totalCash}</h4>
         <h2><b>Liabilities</b></h2>
-        <p>Loan Total: ${totalLoan}</p>
+        <h4>Loan Total: ${totalLoan}</h4>
       </div>
-      </div>
+    </div>
     </GridLayout>
     
   );

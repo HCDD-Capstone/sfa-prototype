@@ -6,7 +6,6 @@ import DatePicker from "react-datepicker";
 import '../styles/Transactions.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { Bar, Doughnut } from 'react-chartjs-2';
-import { Link } from "react-router-dom";
 import "react-grid-layout/css/styles.css"
 import "react-resizable/css/styles.css"
 
@@ -14,7 +13,7 @@ function Transactions() {
   const [startDate, setStartDate] = useState(new Date('January 1, 2021 23:15:30'));
   const [endDate, setEndDate] = useState(new Date('Novemeber 1, 2021 23:15:30'));
   const [transactions, setTransactions] = useState([]);
-  const [doughnutMonth, setDoughnutMonth] = useState(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(new Date('January 1, 2021 23:15:30')));
+  const [doughnutMonth] = useState(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(new Date('January 1, 2021 23:15:30')));
   var doughnutTypes = {};
   var barGraphData = [];
   const bar = useRef();
@@ -23,15 +22,6 @@ function Transactions() {
   const barOptions = {
     maintainAspectRatio: true,
     scales: {
-        yAxes: [
-        {
-            ticks: {
-                beginAtZero: true,
-            },
-        },
-        ],
-    },
-    scales: {
       y: {
         title: {
           display: true,
@@ -39,6 +29,7 @@ function Transactions() {
           text: 'Total Spent'
         },
         ticks: {
+            beginAtZero: true,
             // Include a dollar sign in the ticks
             callback: function(value, index, values) {
                 return '$' + value;
@@ -77,8 +68,7 @@ function Transactions() {
         doughnut.current.data.labels = labels;
         doughnut.current.data.datasets[0].data = totals;
         doughnut.current.update();
-        console.log(bar.current.data);
-        //setDoughnutMonth(new Intl.DateTimeFormat('en-US', { month: 'long'}).format(newDate));
+        document.querySelector('.doughnut-title').innerHTML = `Breakdown for ${new Intl.DateTimeFormat('en-US', { month: 'long'}).format(newDate)}`;
       } catch(e) {
         console.error(e);
       }
@@ -152,6 +142,10 @@ function Transactions() {
   useEffect(() => {
     updateChart();
   }, [startDate, endDate]);
+
+  useEffect(() => {
+    updateChart();
+  }, [transactions])
   
   const getMonthlySpending = () => {
     let months = (endDate.getFullYear() - startDate.getFullYear()) * 12;
@@ -201,7 +195,6 @@ function Transactions() {
         });
       }
     });
-    console.log(monthlySpending);
     return monthlySpending;
   }
 
@@ -209,7 +202,7 @@ function Transactions() {
     doughnutTypes = {};
     transactions.forEach((transaction) => {
       let date = new Date(transaction.date);
-      if (date.getMonth() == transactionDate.getMonth() && date.getFullYear() === transactionDate.getFullYear()) {
+      if (date.getMonth() === transactionDate.getMonth() && date.getFullYear() === transactionDate.getFullYear()) {
         if (doughnutTypes.hasOwnProperty(transaction.type)) {
           doughnutTypes[transaction.type] += transaction.price;
         } else {
@@ -240,8 +233,16 @@ function Transactions() {
 
   return (  
     <GridLayout className="layout" cols={12} rowHeight={30} width={1500}>
-        <div key="a" data-grid={{x: 0, y: 0, w: 1, h: 1, static: true}}><h1>Transactions</h1></div>
-        <div key="b" data-grid={{x: 0, y: 1, w: 12, h: 2, static: true}}>
+      <div key="a" data-grid={{x: 0, y: 0, w: 11, h: 1.5, static: true}}>
+        <h1>Transactions</h1>
+      </div>
+      <div key="detail" data-grid={{x: 0, y: 1.5, w: 2.5, h: 12, static: true}}>
+        <h3>Transaction Detail</h3>
+        <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
+      </div>
+      <div key="d" className="bar-grid" data-grid={{x: 2.50, y: 4, w: 6, h: 15}}>
+        <div className="bar">
+          <h3 className="graph-title">Monthly Spending</h3>
           <div className="dates">
             <div className="start-date">
               Start Date:
@@ -252,23 +253,16 @@ function Transactions() {
               <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
             </div>
           </div>
+          <Bar data={barData} ref={bar} options={barOptions} />
         </div>
-        <div key="detail-grid" data-grid={{x: 0, y: 4, w: 3, h: 15}}>
-          <TransactionDetailBox className='details' transactions={transactions} start={startDate} end={endDate}></TransactionDetailBox>
+      </div>
+      <div key="e" data-grid={{x: 8.6, y: 4, w: 2.75, h: 10}}>
+        <div className="doughnut">
+          <h3 className="doughnut-title">Breakdown for {doughnutMonth}</h3>
+          <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
         </div>
-        <div key="d" className="bar-grid" data-grid={{x: 3, y: 4, w: 6, h: 15}}>
-          <div className="bar">
-            <h3 className="graph-title">Monthly Spending</h3>
-            <Bar data={barData} ref={bar} options={barOptions} />
-          </div>
-        </div>
-        <div key="e" data-grid={{x: 9, y: 4, w: 3, h: 15}}>
-          <div className="doughnut">
-            <h3 className="doughnut-title">Breakdown for {doughnutMonth}</h3>
-            <Doughnut data={doughnutData} ref={doughnut} options={doughnutOptions} />
-          </div>
-        </div>
-      </GridLayout>
+      </div>
+    </GridLayout>
   );
 }
 

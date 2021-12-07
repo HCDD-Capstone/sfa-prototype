@@ -31,8 +31,8 @@ function Budget() {
   const [health, setHealth] = useState(0);
   const [children, setChildren] = useState(0);
   const [clothes, setClothes] = useState(0);
-  const [subcategories, setSubcategories] = useState([[grocery, fastfood, bar],[rent, rentinsurance],[tv, events, otherentertainment],[gasutils, water, electricity],[carinsurance,cargas,carrepairs],[mortgage, studentloans, carloan], [health, children, clothes]]);
-  const [setters, setSetters] = useState([[setGrocery, setFastFood, setBar], [setRent, setRentInsurance],[setTv, setEvents, setOtherEnt], [setGasUtils, setWater, setElectricity], [setCarIns, setCarGas, setCarRepairs], [setMortgage, setStudentLoans, setCarLoan], [setHealth, setChildren, setClothes]]);
+  const [subcategories] = useState([[grocery, fastfood, bar],[rent, rentinsurance],[tv, events, otherentertainment],[gasutils, water, electricity],[carinsurance,cargas,carrepairs],[mortgage, studentloans, carloan], [health, children, clothes]]);
+  const [setters] = useState([[setGrocery, setFastFood, setBar], [setRent, setRentInsurance],[setTv, setEvents, setOtherEnt], [setGasUtils, setWater, setElectricity], [setCarIns, setCarGas, setCarRepairs], [setMortgage, setStudentLoans, setCarLoan], [setHealth, setChildren, setClothes]]);
   
   const [foodTotal, setFoodTotal] = useState(0);
   const [rentTotal, setRentTotal] = useState(0);
@@ -55,6 +55,7 @@ function Budget() {
             'rgba(75, 192, 192, 0.2)',
             'rgba(153, 102, 255, 0.2)',
             'rgba(255, 159, 64, 0.2)',
+            'rgba(250, 112, 255, 0.2)',
           ],
           borderColor: [
             'rgba(255, 99, 132, 1)',
@@ -63,11 +64,21 @@ function Budget() {
             'rgba(75, 192, 192, 1)',
             'rgba(153, 102, 255, 1)',
             'rgba(255, 159, 64, 1)',
+            'rgba(250, 112, 255, 1)',
           ],
           borderWidth: 1,
         },
       ],
     };
+  
+  const doughnutOptions = {
+    plugins: {
+      labels: {
+        render: "value"
+      }
+    }
+    
+  }  
   
   useEffect(() => {
     axios.get(`/budgets`)
@@ -202,15 +213,11 @@ function Budget() {
             return <BudgetDropdown setters={setters[i]} values={subcategories[i]} category={category} subcategories={category[`${Object.keys(category)[0]}`]} key={Object.keys(category)[0]}></BudgetDropdown>
           })}
         </div>
-      </div>
-      <div key="c" data-grid={{x: 2, y: 10, w: 1, h: 1, static: true}}>
-        <div>
-          <button onClick={saveBudget}>Save Budget</button>
-        </div>
+        <button className={'sfa-button top-margin'} onClick={saveBudget}>Save Budget</button>
       </div>
       <div key="d" data-grid={{x: 6, y: 1, w: 4, h: 3, static: true}}>
         <div>
-          <Doughnut data={doughnutData} ref={doughnut} />
+          <Doughnut options={doughnutOptions} data={doughnutData} ref={doughnut} />
         </div>
       </div>
     

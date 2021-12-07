@@ -6,8 +6,8 @@ const LoanCard = (props) => {
     return (
         <div className= "cards"> 
             <h3>{props.value}</h3>
-            <div>{props.title}</div>
-            <div>{props.description}</div>
+            <div className='loan-card-title'>{props.title}</div>
+            <div className='loan-card-description'>{props.description}</div>
         </div>
     )   
 }

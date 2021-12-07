@@ -1,8 +1,9 @@
 .dates {
     display: flex;
     flex-direction: row;
-    margin: .5%;
-    border: 2px solid black;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: -20em;
 }
 
 .main-content {
@@ -12,7 +13,7 @@
     align-items: space-between;
     height: 600px;
     margin: 0em;
-    border: 2px solid black;
+    
 }
 
 .details {
@@ -21,7 +22,7 @@
     margin: 0em;
     overflow-y: auto;
     background-color: blue;
-    border: 2px solid black;
+    
 }
 
 .detail-grid {
@@ -29,7 +30,7 @@
     margin: 0em;
     overflow-y: auto;
     background-color: blue;
-    border: 2px solid black;
+    
 }
 
 html, body {
@@ -44,11 +45,22 @@ html, body {
     width: 100%;
     height: 100%;
     align-items: center;
-    border: 2px solid black;
+    
 }
 
 .doughnut {
-    border: 2px solid black;
     width: 100%;
     height: 100%;
+}
+
+.doughnut-title {
+    text-align: center;
+}
+
+h1 {
+    font-weight: bold;
+}
+
+h3 {
+    font-weight: bold;
 }
